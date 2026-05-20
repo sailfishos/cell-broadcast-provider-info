@@ -115,6 +115,52 @@ CATEGORIES = [
     },
 ]
 
+# These Cell Broadcast attention indications are internal assets reserved for
+# official public-warning handling. They must not be installed in ringtone,
+# ambience, alarm, or generic notification sound locations.
+ATTENTION_TONE_DIR = "/usr/share/cell-broadcast-provider-info/attention-tones"
+ATTENTION_TONE_FILE = ATTENTION_TONE_DIR + "/cellbroadcast-attention-853-960.ogg"
+ATTENTION_PROFILES = {
+    "eualert": {
+        "soundFile": ATTENTION_TONE_FILE,
+        "reservedUse": "official-cell-broadcast-public-warning",
+    },
+    "wea": {
+        "soundFile": ATTENTION_TONE_FILE,
+        "reservedUse": "official-cell-broadcast-public-warning",
+    },
+}
+
+WEA_MCCS = {"310", "311", "312", "313", "314", "315", "316"}
+
+# Countries where SailfishOS is officially sold at the time this catalog was
+# added: EU, UK, Norway, and Switzerland. ETSI TS 102 900 requires a dedicated
+# public-warning alerting indication, but does not define one universal EU
+# waveform, so this profile is an MCC-selectable default with room for later
+# country-specific overrides.
+EUALERT_MCCS = {
+    "202", "204", "206", "208", "214", "216", "219", "222", "226",
+    "230", "231", "232", "234", "235", "238", "240", "242", "244",
+    "246", "247", "248", "260", "262", "268", "270", "272", "278",
+    "280", "284", "293", "228",
+}
+
+ATTENTION_CATEGORY_IDS = {
+    "presidential",
+    "extreme",
+    "severe",
+    "amber",
+    "monthly_test",
+    "exercise",
+    "operator_defined",
+    "etws",
+    "etws_test",
+    "public_safety",
+    "state_local_test",
+    "emergency",
+    "additional",
+}
+
 
 QUALIFIER_RE = re.compile(r"^values(?:-(.*))?$")
 MCC_RE = re.compile(r"^mcc(\d{3})$")
@@ -300,7 +346,17 @@ def alert_system_name(config):
     return ""
 
 
+def attention_profile_for_plmn(plmn):
+    mcc = plmn[:3]
+    if mcc in WEA_MCCS:
+        return "wea"
+    if mcc in EUALERT_MCCS:
+        return "eualert"
+    return ""
+
+
 def build_entry(plmn, config, default_names):
+    attention_profile = attention_profile_for_plmn(plmn)
     categories = []
     for category in CATEGORIES:
         ranges = []
@@ -313,20 +369,26 @@ def build_entry(plmn, config, default_names):
             continue
         name = category_name(config, category)
         default_name = default_names.get(category["id"], "")
-        categories.append({
+        category_entry = {
             "id": category["id"],
             "name": name,
             "customName": name.lower() != default_name.lower(),
             "defaultEnabled": category_default(config, category),
             "ranges": ranges,
-        })
+        }
+        if attention_profile and category["id"] in ATTENTION_CATEGORY_IDS:
+            category_entry["attentionProfile"] = attention_profile
+        categories.append(category_entry)
 
-    return {
+    entry = {
         "plmn": plmn,
         "alertSystem": alert_system_name(config),
         "categories": categories,
         "roamingNetworks": config["arrays"].get("cmas_roaming_network_strings", []),
     }
+    if attention_profile:
+        entry["defaultAttentionProfile"] = attention_profile
+    return entry
 
 
 def collect_configs(res_dir):
@@ -376,6 +438,10 @@ def main():
         merged = merge_config(base, mcc_configs[mcc])
         entries[mcc] = build_entry(mcc, merged, default_names)
 
+    for mcc in sorted(WEA_MCCS | EUALERT_MCCS):
+        if mcc not in entries:
+            entries[mcc] = build_entry(mcc, base, default_names)
+
     for mcc, mnc in sorted(mccmnc_configs):
         merged = merge_config(base, mcc_configs.get(mcc, {"arrays": {}, "bools": {}, "strings": {}}))
         merged = merge_config(merged, mccmnc_configs[(mcc, mnc)])
@@ -383,6 +449,7 @@ def main():
 
     catalog = {
         "version": 1,
+        "attentionProfiles": ATTENTION_PROFILES,
         "generated": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "source": {
             "name": "AOSP CellBroadcastReceiver",
@@ -391,6 +458,9 @@ def main():
             "specReferences": [
                 "3GPP TS 23.041",
                 "3GPP TS 22.268",
+                "ETSI TS 102 900",
+                "47 CFR 10.520",
+                "47 CFR 10.530",
             ],
         },
         "entries": entries,
