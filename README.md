@@ -36,7 +36,6 @@ records the exact source commit in the JSON metadata. The catalog contains:
 - PLMN/MCC entries.
 - Mandatory and optional public-warning category topic ranges.
 - Default enabled state for optional categories where available.
-- Roaming network hints from the source data.
 - Attention profile IDs for official public-warning categories.
 
 3GPP TS 23.041 and TS 22.268 are used as normative cross-checks for Cell

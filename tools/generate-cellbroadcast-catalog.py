@@ -4,7 +4,6 @@
 # CellBroadcastReceiver resources.
 
 import argparse
-import datetime
 import json
 import os
 import re
@@ -384,7 +383,6 @@ def build_entry(plmn, config, default_names):
         "plmn": plmn,
         "alertSystem": alert_system_name(config),
         "categories": categories,
-        "roamingNetworks": config["arrays"].get("cmas_roaming_network_strings", []),
     }
     if attention_profile:
         entry["defaultAttentionProfile"] = attention_profile
@@ -450,7 +448,6 @@ def main():
     catalog = {
         "version": 1,
         "attentionProfiles": ATTENTION_PROFILES,
-        "generated": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "source": {
             "name": "AOSP CellBroadcastReceiver",
             "url": "https://android.googlesource.com/platform/packages/apps/CellBroadcastReceiver/+/main/",
