@@ -8,6 +8,7 @@ URL:        https://github.com/sailfishos/cell-broadcast-provider-info/
 Source0:    %{name}-%{version}.tar.bz2
 
 BuildRequires:  gstreamer1.0-plugins-base
+BuildRequires:  gstreamer1.0-plugins-good
 BuildRequires:  gstreamer1.0-tools
 BuildRequires:  python3-base
 BuildRequires:  pkgconfig(Qt5Core)
