@@ -11,7 +11,6 @@ BuildRequires:  gstreamer1.0-plugins-base
 BuildRequires:  gstreamer1.0-plugins-good
 BuildRequires:  gstreamer1.0-tools
 BuildRequires:  python3-base
-BuildRequires:  pkgconfig(Qt5Core)
 
 %description
 This package contains informational files describing public warning cell
@@ -27,22 +26,21 @@ Requires:   %{name} = %{version}-%{release}
 %description devel
 Contains development files for %{name}.
 
-%changelog
-* Wed May 13 2026 Jolla Ltd. <info@jolla.com> - 20260511-1
-- Initial Sailfish OS cell broadcast provider info package.
-
 %prep
 %setup -q -n %{name}-%{version}
 
-%build
-%qmake5
-
 %install
-%qmake5_install
+install -D -m 0644 data/channels.json \
+    %{buildroot}%{_datadir}/cell-broadcast-provider-info/channels.json
+
+python3 tools/generate-cellbroadcast-attention-tones.py \
+    --output-dir %{buildroot}%{_datadir}/cell-broadcast-provider-info/attention-tones
+
+install -D -m 0644 cell-broadcast-provider-info.pc \
+    %{buildroot}%{_datadir}/pkgconfig/cell-broadcast-provider-info.pc
 
 %files
 %license LICENSE
-%doc README.md
 %{_datadir}/cell-broadcast-provider-info
 
 %files devel

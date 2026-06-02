@@ -66,8 +66,8 @@ tools/generate-cellbroadcast-catalog.py \
     --output data/channels.json
 ```
 
-The attention-tone asset is generated during the qmake build. To generate it
-manually:
+The attention-tone asset is generated during package installation. To generate
+it manually:
 
 ```
 tools/generate-cellbroadcast-attention-tones.py --output-dir attention-tones
