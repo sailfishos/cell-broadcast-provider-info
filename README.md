@@ -38,6 +38,18 @@ records the exact source commit in the JSON metadata. The catalog contains:
 - Default enabled state for optional categories where available.
 - Attention profile IDs for official public-warning categories.
 
+`data/ausalert-regulatory.json` is a separately maintained Australian
+regulatory policy source. The generator applies it after every AOSP MCC and
+PLMN resource overlay, so its MCC `505` policy also wins over generated
+`505xx` carrier entries. Its source, edition, and applicable AS/CA clause are
+copied to `regulatorySources`, `sourceRef`, and `clause` in the generated
+catalog. The original AOSP `source.commit` remains the pinned source commit.
+
+Catalog categories may add the following optional fields without changing the
+base schema: `title`, `alertLevel`, `userConfigurable`,
+`settingsVisible`, `display`, `attentionPolicy`, and `sourceRef`. Ranges add
+`languageRole`. DBGF channel 4400 is mandatory for all MCC 505 equipment.
+
 3GPP TS 23.041 and TS 22.268 are used as normative cross-checks for Cell
 Broadcast topic handling. National regulator sources should override AOSP
 country-specific data when they conflict.
@@ -46,14 +58,21 @@ country-specific data when they conflict.
 
 The catalog currently exposes these public-warning attention profiles:
 
-- `wea` for US WEA MCCs `310`-`316`.
-- `eualert` for EU-Alert regions where Sailfish OS is officially sold, namely
-  EU MCCs plus UK `234,235`, Norway `242`, and Switzerland `228`.
+- `standard` for normal public-warning attention, including WEA and EU-Alert
+  regions.
+- `critical` for explicitly highest-severity public warnings. It uses the
+  `cellbroadcast_critical_attention` event so device policy can bypass Silent
+  and Do Not Disturb.
 
 Both profiles currently point at the same private `853 Hz + 960 Hz` two-tone
-asset. They remain separate metadata profiles so runtime code can keep WEA and
-EU-Alert policy selection separate, and so country-specific EU-Alert overrides
-can be added later without changing WEA behavior.
+asset and select different attention events.
+
+The generic `critical` profile is assigned only to categories with explicit
+highest-severity semantics: presidential/national alerts, extreme threats,
+real ETWS warnings, and national regulatory categories such as Critical
+AusAlert. It is not inferred from `mandatory`, because mandatory ranges also
+include some test and lower-severity categories. Priority AusAlert and all
+test/exercise categories retain normal profile-controlled attention.
 
 ## Regenerating
 
@@ -65,6 +84,10 @@ tools/generate-cellbroadcast-catalog.py \
     --commit <aosp-commit-sha> \
     --output data/channels.json
 ```
+
+The default `--regulatory-overrides` value is
+`data/ausalert-regulatory.json`; supply that option to use an alternate
+regulatory source for review or testing.
 
 The attention-tone asset is generated during package installation. To generate
 it manually:

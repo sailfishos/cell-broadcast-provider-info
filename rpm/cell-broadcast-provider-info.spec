@@ -33,8 +33,12 @@ Contains development files for %{name}.
 install -D -m 0644 data/channels.json \
     %{buildroot}%{_datadir}/cell-broadcast-provider-info/channels.json
 
+install -d -m 0755 \
+    %{buildroot}%{_datadir}/cell-broadcast-provider-info/attention-tones
 python3 tools/generate-cellbroadcast-attention-tones.py \
     --output-dir %{buildroot}%{_datadir}/cell-broadcast-provider-info/attention-tones
+chmod 0644 \
+    %{buildroot}%{_datadir}/cell-broadcast-provider-info/attention-tones/cellbroadcast-attention-853-960.ogg
 
 install -D -m 0644 cell-broadcast-provider-info.pc \
     %{buildroot}%{_datadir}/pkgconfig/cell-broadcast-provider-info.pc

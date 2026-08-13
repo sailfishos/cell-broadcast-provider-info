@@ -105,6 +105,11 @@ CATEGORIES = [
         "name": "Geo-fencing trigger messages",
         "array": "geo_fencing_trigger_messages_range_strings",
         "default": True,
+        "alertLevel": "geofencing",
+        "attentionPolicy": "none",
+        "display": "none",
+        "userConfigurable": False,
+        "settingsVisible": False,
     },
     {
         "id": "additional",
@@ -120,13 +125,15 @@ CATEGORIES = [
 ATTENTION_TONE_DIR = "/usr/share/cell-broadcast-provider-info/attention-tones"
 ATTENTION_TONE_FILE = ATTENTION_TONE_DIR + "/cellbroadcast-attention-853-960.ogg"
 ATTENTION_PROFILES = {
-    "eualert": {
+    "standard": {
         "soundFile": ATTENTION_TONE_FILE,
         "reservedUse": "official-cell-broadcast-public-warning",
+        "event": "cellbroadcast_attention",
     },
-    "wea": {
+    "critical": {
         "soundFile": ATTENTION_TONE_FILE,
         "reservedUse": "official-cell-broadcast-public-warning",
+        "event": "cellbroadcast_critical_attention",
     },
 }
 
@@ -134,9 +141,8 @@ WEA_MCCS = {"310", "311", "312", "313", "314", "315", "316"}
 
 # Countries where SailfishOS is officially sold at the time this catalog was
 # added: EU, UK, Norway, and Switzerland. ETSI TS 102 900 requires a dedicated
-# public-warning alerting indication, but does not define one universal EU
-# waveform, so this profile is an MCC-selectable default with room for later
-# country-specific overrides.
+# public-warning alerting indication. These MCCs use the standard profile until
+# a national policy requires different attention behaviour.
 EUALERT_MCCS = {
     "202", "204", "206", "208", "214", "216", "219", "222", "226",
     "230", "231", "232", "234", "235", "238", "240", "242", "244",
@@ -160,6 +166,15 @@ ATTENTION_CATEGORY_IDS = {
     "additional",
 }
 
+# These category identifiers have explicit highest-severity semantics. Do not
+# infer critical attention from a mandatory range: test and lower-severity
+# categories may also be mandatory in national AOSP overlays.
+CRITICAL_CATEGORY_IDS = {
+    "presidential",
+    "extreme",
+    "etws",
+}
+
 
 QUALIFIER_RE = re.compile(r"^values(?:-(.*))?$")
 MCC_RE = re.compile(r"^mcc(\d{3})$")
@@ -172,6 +187,11 @@ def parse_args():
                         help="AOSP CellBroadcastReceiver checkout or archive extraction")
     parser.add_argument("--commit", required=True,
                         help="Pinned AOSP commit SHA")
+    parser.add_argument(
+        "--regulatory-overrides",
+        default=os.path.join(os.path.dirname(__file__), "..", "data",
+                             "ausalert-regulatory.json"),
+        help="Regulatory override catalog applied after AOSP resources")
     parser.add_argument("--output", required=True)
     return parser.parse_args()
 
@@ -347,10 +367,8 @@ def alert_system_name(config):
 
 def attention_profile_for_plmn(plmn):
     mcc = plmn[:3]
-    if mcc in WEA_MCCS:
-        return "wea"
-    if mcc in EUALERT_MCCS:
-        return "eualert"
+    if mcc in WEA_MCCS or mcc in EUALERT_MCCS:
+        return "standard"
     return ""
 
 
@@ -375,7 +393,15 @@ def build_entry(plmn, config, default_names):
             "defaultEnabled": category_default(config, category),
             "ranges": ranges,
         }
-        if attention_profile and category["id"] in ATTENTION_CATEGORY_IDS:
+        for key in ("alertLevel", "attentionPolicy", "display",
+                    "userConfigurable", "settingsVisible"):
+            if key in category:
+                category_entry[key] = category[key]
+        if category["id"] in CRITICAL_CATEGORY_IDS:
+            category_entry["alertLevel"] = "critical"
+            category_entry["attentionPolicy"] = "silent-dnd-override"
+            category_entry["attentionProfile"] = "critical"
+        elif attention_profile and category["id"] in ATTENTION_CATEGORY_IDS:
             category_entry["attentionProfile"] = attention_profile
         categories.append(category_entry)
 
@@ -402,6 +428,34 @@ def collect_configs(res_dir):
         configs[qualifiers] = merge_config(read_config(config_path),
                                            read_strings(strings_path))
     return configs
+
+
+def read_regulatory_overrides(path):
+    """Read separately maintained national regulatory policy overrides.
+
+    Entries replace AOSP entries for their MCC/PLMN after all AOSP resource
+    overlays have been generated. This lets national regulatory requirements
+    take precedence even if AOSP contains a more-specific PLMN configuration.
+    """
+    with open(path) as overrides_file:
+        overrides = json.load(overrides_file)
+    if not isinstance(overrides.get("entries"), dict):
+        raise ValueError("Regulatory overrides must contain an entries object")
+    if not isinstance(overrides.get("sources"), dict):
+        raise ValueError("Regulatory overrides must contain a sources object")
+    return overrides
+
+
+def apply_regulatory_overrides(entries, overrides):
+    """Apply MCC/PLMN regulatory policy after AOSP resource generation."""
+    for plmn, entry in overrides["entries"].items():
+        entry = dict(entry)
+        entry["plmn"] = plmn
+        entries[plmn] = entry
+        if len(plmn) == 3:
+            for generated_plmn in list(entries):
+                if generated_plmn != plmn and generated_plmn.startswith(plmn):
+                    del entries[generated_plmn]
 
 
 def main():
@@ -445,6 +499,17 @@ def main():
         merged = merge_config(merged, mccmnc_configs[(mcc, mnc)])
         entries[mcc + mnc] = build_entry(mcc + mnc, merged, default_names)
 
+    try:
+        regulatory_overrides = read_regulatory_overrides(args.regulatory_overrides)
+    except (OSError, ValueError, json.JSONDecodeError) as error:
+        sys.stderr.write("Unable to read regulatory overrides: %s\n" % error)
+        return 1
+
+    # Apply policy last. An MCC policy deliberately replaces every AOSP
+    # PLMN-specific entry below it, because regulator requirements govern all
+    # Australian operators rather than a selected carrier resource overlay.
+    apply_regulatory_overrides(entries, regulatory_overrides)
+
     catalog = {
         "version": 1,
         "attentionProfiles": ATTENTION_PROFILES,
@@ -460,6 +525,7 @@ def main():
                 "47 CFR 10.530",
             ],
         },
+        "regulatorySources": regulatory_overrides["sources"],
         "entries": entries,
     }
 
