@@ -56,6 +56,11 @@
           "display": "alert",
           "attentionPolicy": "standard",
           "attentionProfile": "standard",
+          "vibrationPattern": [
+            0, 500, 500, 500, 500, 500, 500,
+            1000, 500, 1000, 500, 1000, 500,
+            500, 500, 500, 500, 500, 500
+          ],
           "sourceRef": "as-ca-s042-1-2025-a1-2026",
           "clause": "5.2.3.6",
           "ranges": [

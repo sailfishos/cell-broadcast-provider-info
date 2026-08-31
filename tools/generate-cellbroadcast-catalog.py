@@ -124,6 +124,25 @@ CATEGORIES = [
 # ambience, alarm, or generic notification sound locations.
 ATTENTION_TONE_DIR = "/usr/share/cell-broadcast-provider-info/attention-tones"
 ATTENTION_TONE_FILE = ATTENTION_TONE_DIR + "/cellbroadcast-attention-853-960.ogg"
+WEA_VIBRATION_PATTERN = [
+    0, 2000, 500, 1000, 500, 1000, 500,
+    2000, 500, 1000, 500, 1000,
+]
+SOS_VIBRATION_PATTERN = [
+    0, 500, 500, 500, 500, 500, 500,
+    1000, 500, 1000, 500, 1000, 500,
+    500, 500, 500, 500, 500, 500,
+]
+VIBRATION_PROFILES = {
+    "wea": {
+        "vibrationPattern": WEA_VIBRATION_PATTERN,
+        "vibrationRepeat": False,
+    },
+    "sos": {
+        "vibrationPattern": SOS_VIBRATION_PATTERN,
+        "vibrationRepeat": True,
+    },
+}
 ATTENTION_PROFILES = {
     "standard": {
         "soundFile": ATTENTION_TONE_FILE,
@@ -134,6 +153,9 @@ ATTENTION_PROFILES = {
         "soundFile": ATTENTION_TONE_FILE,
         "reservedUse": "official-cell-broadcast-public-warning",
         "event": "cellbroadcast_critical_attention",
+        "vibrationProfile": "sos",
+        "vibrationPattern": VIBRATION_PROFILES["sos"]["vibrationPattern"],
+        "vibrationRepeat": VIBRATION_PROFILES["sos"]["vibrationRepeat"],
     },
 }
 
@@ -228,6 +250,7 @@ def read_config(path):
     values = {
         "arrays": {},
         "bools": {},
+        "integer_arrays": {},
         "strings": {},
     }
     if os.path.exists(path):
@@ -243,6 +266,14 @@ def read_config(path):
                     for item in child.findall("item")
                     if (item.text or "").strip()
                 ]
+            elif child.tag == "integer-array":
+                try:
+                    values["integer_arrays"][name] = [
+                        int((item.text or "").strip())
+                        for item in child.findall("item")
+                    ]
+                except ValueError:
+                    continue
             elif child.tag == "bool":
                 values["bools"][name] = (child.text or "").strip().lower() == "true"
     return values
@@ -252,6 +283,7 @@ def read_strings(path):
     values = {
         "arrays": {},
         "bools": {},
+        "integer_arrays": {},
         "strings": {},
     }
     if not os.path.exists(path):
@@ -272,16 +304,28 @@ def merge_config(base, overlay):
     merged = {
         "arrays": dict(base["arrays"]),
         "bools": dict(base["bools"]),
+        "integer_arrays": dict(base["integer_arrays"]),
         "strings": dict(base["strings"]),
     }
     merged["arrays"].update(overlay["arrays"])
     merged["bools"].update(overlay["bools"])
+    merged["integer_arrays"].update(overlay["integer_arrays"])
     merged["strings"].update(overlay["strings"])
     return merged
 
 
 def parse_number(value):
     return int(value, 16) if value.lower().startswith("0x") else int(value)
+
+
+def parse_vibration_pattern(value):
+    try:
+        pattern = [int(part) for part in value.split("|")]
+    except ValueError:
+        return []
+    if len(pattern) < 2 or pattern[0] < 0 or any(duration <= 0 for duration in pattern[1:]):
+        return []
+    return pattern
 
 
 def parse_range_item(item, category):
@@ -308,22 +352,29 @@ def parse_range_item(item, category):
     else:
         first = last = parse_number(range_text)
 
-    return {
+    result = {
         "from": first,
         "to": last,
         "mandatory": category.get("mandatory", False) or attrs.get("always_on") == "true",
         "apply": category.get("apply", True),
     }
+    vibration_pattern = parse_vibration_pattern(attrs.get("vibration", ""))
+    if vibration_pattern:
+        result["vibrationPattern"] = vibration_pattern
+    return result
 
 
 def normalize_ranges(ranges):
     if not ranges:
         return []
-    ranges = sorted(ranges, key=lambda r: (r["from"], r["to"], r["mandatory"], r["apply"]))
+    ranges = sorted(ranges, key=lambda r: (
+        r["from"], r["to"], r["mandatory"], r["apply"],
+        tuple(r.get("vibrationPattern", []))))
     merged = []
     for item in ranges:
         if (merged and item["mandatory"] == merged[-1]["mandatory"]
                 and item["apply"] == merged[-1]["apply"]
+                and item.get("vibrationPattern") == merged[-1].get("vibrationPattern")
                 and item["from"] <= merged[-1]["to"] + 1):
             merged[-1]["to"] = max(merged[-1]["to"], item["to"])
         else:
@@ -372,7 +423,7 @@ def attention_profile_for_plmn(plmn):
     return ""
 
 
-def build_entry(plmn, config, default_names):
+def build_entry(plmn, config, default_names, base_vibration_pattern):
     attention_profile = attention_profile_for_plmn(plmn)
     categories = []
     for category in CATEGORIES:
@@ -394,7 +445,8 @@ def build_entry(plmn, config, default_names):
             "ranges": ranges,
         }
         for key in ("alertLevel", "attentionPolicy", "display",
-                    "userConfigurable", "settingsVisible"):
+                    "userConfigurable", "settingsVisible", "vibrationPattern",
+                    "vibrationRepeat"):
             if key in category:
                 category_entry[key] = category[key]
         if category["id"] in CRITICAL_CATEGORY_IDS:
@@ -412,6 +464,9 @@ def build_entry(plmn, config, default_names):
     }
     if attention_profile:
         entry["defaultAttentionProfile"] = attention_profile
+    vibration_pattern = config["integer_arrays"].get("default_vibration_pattern", [])
+    if plmn and vibration_pattern and vibration_pattern != base_vibration_pattern:
+        entry["defaultVibrationPattern"] = vibration_pattern
     return entry
 
 
@@ -483,21 +538,29 @@ def main():
     }
 
     entries = {
-        "default": build_entry("", base, default_names),
+        "default": build_entry("", base, default_names,
+                               base["integer_arrays"].get("default_vibration_pattern", [])),
     }
 
     for mcc in sorted(mcc_configs):
         merged = merge_config(base, mcc_configs[mcc])
-        entries[mcc] = build_entry(mcc, merged, default_names)
+        entries[mcc] = build_entry(
+            mcc, merged, default_names,
+            base["integer_arrays"].get("default_vibration_pattern", []))
 
     for mcc in sorted(WEA_MCCS | EUALERT_MCCS):
         if mcc not in entries:
-            entries[mcc] = build_entry(mcc, base, default_names)
+            entries[mcc] = build_entry(
+                mcc, base, default_names,
+                base["integer_arrays"].get("default_vibration_pattern", []))
 
     for mcc, mnc in sorted(mccmnc_configs):
-        merged = merge_config(base, mcc_configs.get(mcc, {"arrays": {}, "bools": {}, "strings": {}}))
+        merged = merge_config(base, mcc_configs.get(mcc, {
+            "arrays": {}, "bools": {}, "integer_arrays": {}, "strings": {}}))
         merged = merge_config(merged, mccmnc_configs[(mcc, mnc)])
-        entries[mcc + mnc] = build_entry(mcc + mnc, merged, default_names)
+        entries[mcc + mnc] = build_entry(
+            mcc + mnc, merged, default_names,
+            base["integer_arrays"].get("default_vibration_pattern", []))
 
     try:
         regulatory_overrides = read_regulatory_overrides(args.regulatory_overrides)
@@ -513,6 +576,7 @@ def main():
     catalog = {
         "version": 1,
         "attentionProfiles": ATTENTION_PROFILES,
+        "vibrationProfiles": VIBRATION_PROFILES,
         "source": {
             "name": "AOSP CellBroadcastReceiver",
             "url": "https://android.googlesource.com/platform/packages/apps/CellBroadcastReceiver/+/main/",

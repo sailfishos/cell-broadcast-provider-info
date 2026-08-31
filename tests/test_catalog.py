@@ -96,12 +96,37 @@ class AusAlertCatalogTest(unittest.TestCase):
 
     def test_attention_profiles_and_provenance(self):
         profiles = self.catalog["attentionProfiles"]
+        vibration_profiles = self.catalog["vibrationProfiles"]
         self.assertEqual({"standard", "critical"}, set(profiles))
+        self.assertEqual({"wea", "sos"}, set(vibration_profiles))
         self.assertEqual("cellbroadcast_attention", profiles["standard"]["event"])
         self.assertEqual("cellbroadcast_critical_attention",
                          profiles["critical"]["event"])
+        self.assertNotIn("vibrationProfile", profiles["standard"])
+        self.assertEqual("sos", profiles["critical"]["vibrationProfile"])
+        self.assertNotIn("vibrationPattern", profiles["standard"])
+        self.assertNotIn("vibrationRepeat", profiles["standard"])
+        self.assertEqual(
+            [0, 2000, 500, 1000, 500, 1000, 500,
+             2000, 500, 1000, 500, 1000],
+            vibration_profiles["wea"]["vibrationPattern"])
+        self.assertFalse(vibration_profiles["wea"]["vibrationRepeat"])
+        self.assertEqual(
+            [0, 500, 500, 500, 500, 500, 500,
+             1000, 500, 1000, 500, 1000, 500,
+             500, 500, 500, 500, 500, 500],
+            vibration_profiles["sos"]["vibrationPattern"])
+        self.assertTrue(vibration_profiles["sos"]["vibrationRepeat"])
+        self.assertEqual(vibration_profiles["sos"]["vibrationPattern"],
+                         profiles["critical"]["vibrationPattern"])
+        self.assertEqual(vibration_profiles["sos"]["vibrationRepeat"],
+                         profiles["critical"]["vibrationRepeat"])
         self.assertEqual("critical",
                          self.category("ausalert_critical")["attentionProfile"])
+        self.assertEqual(
+            vibration_profiles["sos"]["vibrationPattern"],
+            self.category("ausalert_priority")["vibrationPattern"])
+        self.assertNotIn("vibrationRepeat", self.category("ausalert_priority"))
         for category in self.catalog["entries"]["505"]["categories"]:
             if (category["id"] != "ausalert_critical"
                     and "attentionProfile" in category):
@@ -122,6 +147,30 @@ class AusAlertCatalogTest(unittest.TestCase):
         self.assertIn("5.2.3.2", source["clauses"])
         self.assertIn("5.2.3.5", source["clauses"])
         self.assertIn("5.2.3.15", source["clauses"])
+
+    def test_aosp_vibration_overrides(self):
+        inline_patterns = {
+            tuple(item["vibrationPattern"])
+            for entry in self.catalog["entries"].values()
+            for category in entry["categories"]
+            for item in category["ranges"]
+            if "vibrationPattern" in item
+        }
+        self.assertEqual({
+            (0, 1000, 500, 1000, 500, 1000, 500,
+             2000, 500, 2000, 500, 2000, 500,
+             1000, 500, 1000, 500, 1000, 500),
+            (0, 500, 500, 500, 500, 500, 500,
+             1000, 500, 1000, 500, 1000, 500,
+             500, 500, 500, 500, 500, 500),
+            (0, 350, 250, 350),
+        }, inline_patterns)
+
+        pulse_pattern = [0] + [500] * 16
+        self.assertEqual(pulse_pattern,
+                         self.catalog["entries"]["302"]["defaultVibrationPattern"])
+        self.assertEqual(pulse_pattern,
+                         self.catalog["entries"]["334"]["defaultVibrationPattern"])
 
     def test_mcc_override_sets_plmn_and_removes_aosp_plmn_entries(self):
         generator = load_generator()

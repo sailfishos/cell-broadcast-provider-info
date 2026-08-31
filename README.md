@@ -37,6 +37,9 @@ records the exact source commit in the JSON metadata. The catalog contains:
 - Mandatory and optional public-warning category topic ranges.
 - Default enabled state for optional categories where available.
 - Attention profile IDs for official public-warning categories.
+- Named vibration profiles independently referenced by attention and provider
+  policy.
+- Default and country-specific public-warning vibration patterns.
 
 `data/ausalert-regulatory.json` is a separately maintained Australian
 regulatory policy source. The generator applies it after every AOSP MCC and
@@ -47,8 +50,11 @@ catalog. The original AOSP `source.commit` remains the pinned source commit.
 
 Catalog categories may add the following optional fields without changing the
 base schema: `title`, `alertLevel`, `userConfigurable`,
-`settingsVisible`, `display`, `attentionPolicy`, and `sourceRef`. Ranges add
-`languageRole`. DBGF channel 4400 is mandatory for all MCC 505 equipment.
+`settingsVisible`, `display`, `attentionPolicy`, `sourceRef`,
+`vibrationPattern`, and `vibrationRepeat`. Ranges add `languageRole` and may
+override `vibrationPattern`. Entries may use `defaultVibrationPattern` for a
+country or operator default. DBGF channel 4400 is mandatory for all MCC 505
+equipment.
 
 3GPP TS 23.041 and TS 22.268 are used as normative cross-checks for Cell
 Broadcast topic handling. National regulator sources should override AOSP
@@ -64,8 +70,22 @@ The catalog currently exposes these public-warning attention profiles:
   `cellbroadcast_critical_attention` event so device policy can bypass Silent
   and Do Not Disturb.
 
-Both profiles currently point at the same private `853 Hz + 960 Hz` two-tone
-asset and select different attention events.
+Both profiles point at the same private `853 Hz + 960 Hz` two-tone asset and
+select different attention events. Their vibration is selected independently:
+`standard` leaves vibration to the platform's existing attention haptic,
+while `critical` references the repeating `sos` profile. The separate `wea`
+profile is available for explicit country or provider policy. AusAlert Level 2
+uses the SOS pattern as a category override while retaining the standard
+attention policy and a single vibration cycle. Explicit attention vibration
+profiles also carry resolved fields so consumers built for the earlier
+catalog remain compatible.
+
+AOSP inline `vibration=` values are retained on their exact channel ranges.
+Country or operator `default_vibration_pattern` arrays which differ from the
+AOSP base are retained on the corresponding entry. Consumers resolve
+vibration in this order: range, category, entry default, attention profile.
+Regulatory overlays can therefore override a vibration pattern without
+changing sound or Do Not Disturb policy.
 
 The generic `critical` profile is assigned only to categories with explicit
 highest-severity semantics: presidential/national alerts, extreme threats,
