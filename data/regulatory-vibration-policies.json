@@ -1,0 +1,54 @@
+{
+  "sources": {
+    "47-cfr-10-530": {
+      "source": "47 CFR 10.530",
+      "title": "Common vibration cadence",
+      "url": "https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-10/subpart-E/section-10.530",
+      "clauses": [
+        "10.530(a)"
+      ]
+    }
+  },
+  "entries": {
+    "310": {
+      "defaultVibrationProfile": "wea",
+      "vibrationSourceRef": "47-cfr-10-530"
+    },
+    "311": {
+      "defaultVibrationProfile": "wea",
+      "vibrationSourceRef": "47-cfr-10-530"
+    },
+    "312": {
+      "defaultVibrationProfile": "wea",
+      "vibrationSourceRef": "47-cfr-10-530"
+    },
+    "313": {
+      "defaultVibrationProfile": "wea",
+      "vibrationSourceRef": "47-cfr-10-530"
+    },
+    "314": {
+      "defaultVibrationProfile": "wea",
+      "vibrationSourceRef": "47-cfr-10-530"
+    },
+    "315": {
+      "defaultVibrationProfile": "wea",
+      "vibrationSourceRef": "47-cfr-10-530"
+    },
+    "316": {
+      "defaultVibrationProfile": "wea",
+      "vibrationSourceRef": "47-cfr-10-530"
+    },
+    "330": {
+      "defaultVibrationProfile": "wea",
+      "vibrationSourceRef": "47-cfr-10-530"
+    },
+    "332": {
+      "defaultVibrationProfile": "wea",
+      "vibrationSourceRef": "47-cfr-10-530"
+    },
+    "544": {
+      "defaultVibrationProfile": "wea",
+      "vibrationSourceRef": "47-cfr-10-530"
+    }
+  }
+}

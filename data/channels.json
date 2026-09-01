@@ -312,9 +312,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -427,7 +425,6 @@
           ]
         },
         {
-          "alertLevel": "critical",
           "attentionPolicy": "silent-dnd-override",
           "attentionProfile": "critical",
           "customName": false,
@@ -439,6 +436,7 @@
               "apply": true,
               "from": 4372,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4372
             }
           ]
@@ -597,6 +595,7 @@
               "apply": true,
               "from": 4371,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4371
             }
           ]
@@ -651,9 +650,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -836,20 +833,20 @@
               "apply": true,
               "from": 4370,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4370
             },
             {
               "apply": true,
               "from": 4383,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4383
             }
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": true,
           "defaultEnabled": true,
           "id": "extreme",
@@ -859,12 +856,14 @@
               "apply": true,
               "from": 4371,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4371
             },
             {
               "apply": true,
               "from": 4384,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4384
             }
           ]
@@ -943,12 +942,14 @@
               "apply": true,
               "from": 4381,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4381
             },
             {
               "apply": true,
               "from": 4394,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4394
             }
           ]
@@ -988,18 +989,19 @@
               "apply": true,
               "from": 4370,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4370
             },
             {
               "apply": true,
               "from": 4383,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4383
             }
           ]
         },
         {
-          "alertLevel": "critical",
           "attentionPolicy": "silent-dnd-override",
           "attentionProfile": "critical",
           "customName": true,
@@ -1011,12 +1013,14 @@
               "apply": true,
               "from": 4371,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4372
             },
             {
               "apply": true,
               "from": 4384,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4385
             }
           ]
@@ -1111,9 +1115,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -1307,9 +1309,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -1492,6 +1492,7 @@
               "apply": true,
               "from": 4370,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4370,
               "vibrationPattern": [
                 0,
@@ -1519,6 +1520,7 @@
               "apply": true,
               "from": 4383,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4383,
               "vibrationPattern": [
                 0,
@@ -1545,9 +1547,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": true,
           "defaultEnabled": true,
           "id": "extreme",
@@ -1916,9 +1916,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": true,
           "defaultEnabled": true,
           "id": "extreme",
@@ -2067,9 +2065,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -2197,9 +2193,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -2393,9 +2387,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -2589,9 +2581,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -2785,9 +2775,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -2981,9 +2969,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -3166,6 +3152,7 @@
               "apply": true,
               "from": 919,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 919,
               "vibrationPattern": [
                 0,
@@ -3193,6 +3180,7 @@
               "apply": true,
               "from": 4370,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4370,
               "vibrationPattern": [
                 0,
@@ -3220,6 +3208,7 @@
               "apply": true,
               "from": 4383,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4383,
               "vibrationPattern": [
                 0,
@@ -3246,9 +3235,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": true,
           "defaultEnabled": true,
           "id": "extreme",
@@ -3528,18 +3515,19 @@
               "apply": true,
               "from": 4370,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4370
             },
             {
               "apply": true,
               "from": 4383,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4383
             }
           ]
         },
         {
-          "alertLevel": "critical",
           "attentionPolicy": "silent-dnd-override",
           "attentionProfile": "critical",
           "customName": true,
@@ -3551,15 +3539,18 @@
               "apply": true,
               "from": 4371,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4372
             },
             {
               "apply": true,
               "from": 4384,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4385
             }
-          ]
+          ],
+          "sourceRef": "gov-uk-emergency-alerts"
         },
         {
           "attentionProfile": "standard",
@@ -3572,12 +3563,14 @@
               "apply": true,
               "from": 4373,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4378
             },
             {
               "apply": true,
               "from": 4386,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4391
             }
           ]
@@ -3655,7 +3648,6 @@
           ]
         },
         {
-          "alertLevel": "critical",
           "attentionPolicy": "silent-dnd-override",
           "attentionProfile": "critical",
           "customName": false,
@@ -3675,7 +3667,8 @@
               "mandatory": false,
               "to": 4385
             }
-          ]
+          ],
+          "sourceRef": "gov-uk-emergency-alerts"
         },
         {
           "attentionProfile": "standard",
@@ -3840,18 +3833,19 @@
               "apply": true,
               "from": 4370,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4370
             },
             {
               "apply": true,
               "from": 4383,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4383
             }
           ]
         },
         {
-          "alertLevel": "critical",
           "attentionPolicy": "silent-dnd-override",
           "attentionProfile": "critical",
           "customName": true,
@@ -3863,12 +3857,14 @@
               "apply": true,
               "from": 4371,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4374
             },
             {
               "apply": true,
               "from": 4384,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4387
             }
           ]
@@ -3979,9 +3975,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -4164,20 +4158,20 @@
               "apply": true,
               "from": 4370,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4370
             },
             {
               "apply": true,
               "from": 4383,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4383
             }
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -4208,12 +4202,14 @@
               "apply": true,
               "from": 4375,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4376
             },
             {
               "apply": true,
               "from": 4388,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4389
             }
           ]
@@ -4229,12 +4225,14 @@
               "apply": true,
               "from": 4380,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4380
             },
             {
               "apply": true,
               "from": 4393,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4393
             }
           ]
@@ -4250,12 +4248,14 @@
               "apply": true,
               "from": 4381,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4381
             },
             {
               "apply": true,
               "from": 4394,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4394
             }
           ]
@@ -4310,9 +4310,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -4506,9 +4504,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": true,
           "defaultEnabled": true,
           "id": "extreme",
@@ -4702,9 +4698,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -4898,9 +4892,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -5661,9 +5653,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -5857,9 +5847,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -6042,6 +6030,7 @@
               "apply": true,
               "from": 4370,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4370,
               "vibrationPattern": [
                 0,
@@ -6069,6 +6058,7 @@
               "apply": true,
               "from": 4383,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4383,
               "vibrationPattern": [
                 0,
@@ -6095,9 +6085,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": true,
           "defaultEnabled": true,
           "id": "extreme",
@@ -6403,9 +6391,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -6588,18 +6574,19 @@
               "apply": true,
               "from": 4370,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4370
             },
             {
               "apply": true,
               "from": 4383,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4383
             }
           ]
         },
         {
-          "alertLevel": "critical",
           "attentionPolicy": "silent-dnd-override",
           "attentionProfile": "critical",
           "customName": false,
@@ -6611,12 +6598,14 @@
               "apply": true,
               "from": 4371,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4371
             },
             {
               "apply": true,
               "from": 4384,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4384
             }
           ]
@@ -6695,12 +6684,14 @@
               "apply": true,
               "from": 4381,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4381
             },
             {
               "apply": true,
               "from": 4394,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4394
             }
           ]
@@ -6751,9 +6742,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -6947,9 +6936,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -7143,9 +7130,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -7328,18 +7313,19 @@
               "apply": true,
               "from": 4370,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4370
             },
             {
               "apply": true,
               "from": 4383,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4383
             }
           ]
         },
         {
-          "alertLevel": "critical",
           "attentionPolicy": "silent-dnd-override",
           "attentionProfile": "critical",
           "customName": true,
@@ -7351,12 +7337,14 @@
               "apply": true,
               "from": 4371,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4372
             },
             {
               "apply": true,
               "from": 4384,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4385
             }
           ]
@@ -7372,12 +7360,14 @@
               "apply": true,
               "from": 4373,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4378
             },
             {
               "apply": true,
               "from": 4386,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4391
             }
           ]
@@ -7393,12 +7383,14 @@
               "apply": true,
               "from": 4379,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4379
             },
             {
               "apply": true,
               "from": 4392,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4392
             }
           ]
@@ -7501,12 +7493,14 @@
               "apply": true,
               "from": 4370,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4370
             },
             {
               "apply": true,
               "from": 4383,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4383
             }
           ]
@@ -7641,9 +7635,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -8426,20 +8418,20 @@
               "apply": true,
               "from": 4370,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4370
             },
             {
               "apply": true,
               "from": 4383,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4383
             }
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": true,
           "defaultEnabled": true,
           "id": "extreme",
@@ -8449,12 +8441,14 @@
               "apply": true,
               "from": 4371,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4371
             },
             {
               "apply": true,
               "from": 4384,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4384
             }
           ]
@@ -8529,12 +8523,14 @@
               "apply": true,
               "from": 4381,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4381
             },
             {
               "apply": true,
               "from": 4394,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4394
             }
           ]
@@ -8583,9 +8579,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -8799,7 +8793,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "310"
+      "defaultVibrationProfile": "wea",
+      "plmn": "310",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "310012": {
       "alertSystem": "",
@@ -8828,9 +8824,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -9044,7 +9038,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "310012"
+      "defaultVibrationProfile": "wea",
+      "plmn": "310012",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "310120": {
       "alertSystem": "",
@@ -9073,9 +9069,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -9274,7 +9268,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "310120"
+      "defaultVibrationProfile": "wea",
+      "plmn": "310120",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "310150": {
       "alertSystem": "",
@@ -9303,9 +9299,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -9519,7 +9513,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "310150"
+      "defaultVibrationProfile": "wea",
+      "plmn": "310150",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "31016": {
       "alertSystem": "",
@@ -9548,9 +9544,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -9764,7 +9758,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "31016"
+      "defaultVibrationProfile": "wea",
+      "plmn": "31016",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "310160": {
       "alertSystem": "",
@@ -9793,9 +9789,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -10009,7 +10003,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "310160"
+      "defaultVibrationProfile": "wea",
+      "plmn": "310160",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "310170": {
       "alertSystem": "",
@@ -10038,9 +10034,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -10254,7 +10248,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "310170"
+      "defaultVibrationProfile": "wea",
+      "plmn": "310170",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "310200": {
       "alertSystem": "",
@@ -10283,9 +10279,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -10499,7 +10493,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "310200"
+      "defaultVibrationProfile": "wea",
+      "plmn": "310200",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "310210": {
       "alertSystem": "",
@@ -10528,9 +10524,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -10744,7 +10738,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "310210"
+      "defaultVibrationProfile": "wea",
+      "plmn": "310210",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "310220": {
       "alertSystem": "",
@@ -10773,9 +10769,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -10989,7 +10983,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "310220"
+      "defaultVibrationProfile": "wea",
+      "plmn": "310220",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "310230": {
       "alertSystem": "",
@@ -11018,9 +11014,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -11234,7 +11228,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "310230"
+      "defaultVibrationProfile": "wea",
+      "plmn": "310230",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "310240": {
       "alertSystem": "",
@@ -11263,9 +11259,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -11479,7 +11473,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "310240"
+      "defaultVibrationProfile": "wea",
+      "plmn": "310240",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "310250": {
       "alertSystem": "",
@@ -11508,9 +11504,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -11724,7 +11718,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "310250"
+      "defaultVibrationProfile": "wea",
+      "plmn": "310250",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "31026": {
       "alertSystem": "",
@@ -11753,9 +11749,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -11969,7 +11963,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "31026"
+      "defaultVibrationProfile": "wea",
+      "plmn": "31026",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "310260": {
       "alertSystem": "",
@@ -11998,9 +11994,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -12214,7 +12208,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "310260"
+      "defaultVibrationProfile": "wea",
+      "plmn": "310260",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "310270": {
       "alertSystem": "",
@@ -12243,9 +12239,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -12459,7 +12453,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "310270"
+      "defaultVibrationProfile": "wea",
+      "plmn": "310270",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "310280": {
       "alertSystem": "",
@@ -12488,9 +12484,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -12704,7 +12698,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "310280"
+      "defaultVibrationProfile": "wea",
+      "plmn": "310280",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "31030": {
       "alertSystem": "",
@@ -12733,9 +12729,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -12949,7 +12943,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "31030"
+      "defaultVibrationProfile": "wea",
+      "plmn": "31030",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "310300": {
       "alertSystem": "",
@@ -12978,9 +12974,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -13194,7 +13188,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "310300"
+      "defaultVibrationProfile": "wea",
+      "plmn": "310300",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "310310": {
       "alertSystem": "",
@@ -13223,9 +13219,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -13439,7 +13433,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "310310"
+      "defaultVibrationProfile": "wea",
+      "plmn": "310310",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "310380": {
       "alertSystem": "",
@@ -13468,9 +13464,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -13684,7 +13678,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "310380"
+      "defaultVibrationProfile": "wea",
+      "plmn": "310380",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "310410": {
       "alertSystem": "",
@@ -13713,9 +13709,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -13929,7 +13923,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "310410"
+      "defaultVibrationProfile": "wea",
+      "plmn": "310410",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "310490": {
       "alertSystem": "",
@@ -13958,9 +13954,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -14174,7 +14168,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "310490"
+      "defaultVibrationProfile": "wea",
+      "plmn": "310490",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "310530": {
       "alertSystem": "",
@@ -14203,9 +14199,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -14419,7 +14413,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "310530"
+      "defaultVibrationProfile": "wea",
+      "plmn": "310530",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "310560": {
       "alertSystem": "",
@@ -14448,9 +14444,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -14664,7 +14658,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "310560"
+      "defaultVibrationProfile": "wea",
+      "plmn": "310560",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "310590": {
       "alertSystem": "",
@@ -14693,9 +14689,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -14909,7 +14903,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "310590"
+      "defaultVibrationProfile": "wea",
+      "plmn": "310590",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "310660": {
       "alertSystem": "",
@@ -14938,9 +14934,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -15154,7 +15148,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "310660"
+      "defaultVibrationProfile": "wea",
+      "plmn": "310660",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "310680": {
       "alertSystem": "",
@@ -15183,9 +15179,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -15399,7 +15393,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "310680"
+      "defaultVibrationProfile": "wea",
+      "plmn": "310680",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "31070": {
       "alertSystem": "",
@@ -15428,9 +15424,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -15644,7 +15638,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "31070"
+      "defaultVibrationProfile": "wea",
+      "plmn": "31070",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "310800": {
       "alertSystem": "",
@@ -15673,9 +15669,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -15889,7 +15883,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "310800"
+      "defaultVibrationProfile": "wea",
+      "plmn": "310800",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "31090": {
       "alertSystem": "",
@@ -15918,9 +15914,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -16134,7 +16128,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "31090"
+      "defaultVibrationProfile": "wea",
+      "plmn": "31090",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "310950": {
       "alertSystem": "",
@@ -16163,9 +16159,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -16379,7 +16373,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "310950"
+      "defaultVibrationProfile": "wea",
+      "plmn": "310950",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "311": {
       "alertSystem": "",
@@ -16408,9 +16404,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -16624,7 +16618,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "311"
+      "defaultVibrationProfile": "wea",
+      "plmn": "311",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "311180": {
       "alertSystem": "",
@@ -16653,9 +16649,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -16869,7 +16863,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "311180"
+      "defaultVibrationProfile": "wea",
+      "plmn": "311180",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "311220": {
       "alertSystem": "",
@@ -16898,9 +16894,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -17114,7 +17108,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "311220"
+      "defaultVibrationProfile": "wea",
+      "plmn": "311220",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "311480": {
       "alertSystem": "",
@@ -17143,9 +17139,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -17359,7 +17353,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "311480"
+      "defaultVibrationProfile": "wea",
+      "plmn": "311480",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "311580": {
       "alertSystem": "",
@@ -17388,9 +17384,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -17604,7 +17598,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "311580"
+      "defaultVibrationProfile": "wea",
+      "plmn": "311580",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "311660": {
       "alertSystem": "",
@@ -17633,9 +17629,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -17849,7 +17843,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "311660"
+      "defaultVibrationProfile": "wea",
+      "plmn": "311660",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "311882": {
       "alertSystem": "",
@@ -17878,9 +17874,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -18094,7 +18088,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "311882"
+      "defaultVibrationProfile": "wea",
+      "plmn": "311882",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "312": {
       "alertSystem": "",
@@ -18123,9 +18119,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -18339,7 +18333,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "312"
+      "defaultVibrationProfile": "wea",
+      "plmn": "312",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "312250": {
       "alertSystem": "",
@@ -18368,9 +18364,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -18584,7 +18578,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "312250"
+      "defaultVibrationProfile": "wea",
+      "plmn": "312250",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "312530": {
       "alertSystem": "",
@@ -18613,9 +18609,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -18814,7 +18808,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "312530"
+      "defaultVibrationProfile": "wea",
+      "plmn": "312530",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "312670": {
       "alertSystem": "",
@@ -18843,9 +18839,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -19059,7 +19053,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "312670"
+      "defaultVibrationProfile": "wea",
+      "plmn": "312670",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "313": {
       "alertSystem": "",
@@ -19088,9 +19084,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -19304,7 +19298,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "313"
+      "defaultVibrationProfile": "wea",
+      "plmn": "313",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "313100": {
       "alertSystem": "",
@@ -19333,9 +19329,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -19549,7 +19543,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "313100"
+      "defaultVibrationProfile": "wea",
+      "plmn": "313100",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "313110": {
       "alertSystem": "",
@@ -19578,9 +19574,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -19794,7 +19788,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "313110"
+      "defaultVibrationProfile": "wea",
+      "plmn": "313110",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "313120": {
       "alertSystem": "",
@@ -19823,9 +19819,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -20039,7 +20033,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "313120"
+      "defaultVibrationProfile": "wea",
+      "plmn": "313120",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "313130": {
       "alertSystem": "",
@@ -20068,9 +20064,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -20284,7 +20278,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "313130"
+      "defaultVibrationProfile": "wea",
+      "plmn": "313130",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "313140": {
       "alertSystem": "",
@@ -20313,9 +20309,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -20529,7 +20523,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "313140"
+      "defaultVibrationProfile": "wea",
+      "plmn": "313140",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "313340": {
       "alertSystem": "",
@@ -20558,9 +20554,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -20774,7 +20768,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "313340"
+      "defaultVibrationProfile": "wea",
+      "plmn": "313340",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "313790": {
       "alertSystem": "",
@@ -20803,9 +20799,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -21019,7 +21013,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "313790"
+      "defaultVibrationProfile": "wea",
+      "plmn": "313790",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "314": {
       "alertSystem": "",
@@ -21048,9 +21044,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -21264,7 +21258,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "314"
+      "defaultVibrationProfile": "wea",
+      "plmn": "314",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "315": {
       "alertSystem": "",
@@ -21293,9 +21289,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -21509,7 +21503,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "315"
+      "defaultVibrationProfile": "wea",
+      "plmn": "315",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "316": {
       "alertSystem": "",
@@ -21538,9 +21534,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -21754,7 +21748,9 @@
         }
       ],
       "defaultAttentionProfile": "standard",
-      "plmn": "316"
+      "defaultVibrationProfile": "wea",
+      "plmn": "316",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "330": {
       "alertSystem": "",
@@ -21783,9 +21779,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -21806,6 +21800,7 @@
           ]
         },
         {
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "severe",
@@ -21826,6 +21821,7 @@
           ]
         },
         {
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "amber",
@@ -21846,6 +21842,7 @@
           ]
         },
         {
+          "attentionProfile": "standard",
           "customName": true,
           "defaultEnabled": false,
           "id": "monthly_test",
@@ -21866,6 +21863,7 @@
           ]
         },
         {
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": false,
           "id": "exercise",
@@ -21886,6 +21884,7 @@
           ]
         },
         {
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": false,
           "id": "operator_defined",
@@ -21929,6 +21928,7 @@
           ]
         },
         {
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "etws_test",
@@ -21943,6 +21943,7 @@
           ]
         },
         {
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "public_safety",
@@ -21957,6 +21958,7 @@
           ]
         },
         {
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": false,
           "id": "state_local_test",
@@ -21990,7 +21992,10 @@
           "userConfigurable": false
         }
       ],
-      "plmn": "330"
+      "defaultAttentionProfile": "standard",
+      "defaultVibrationProfile": "wea",
+      "plmn": "330",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "330110": {
       "alertSystem": "",
@@ -22019,9 +22024,7 @@
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "extreme",
@@ -22042,6 +22045,7 @@
           ]
         },
         {
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "severe",
@@ -22062,6 +22066,7 @@
           ]
         },
         {
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "amber",
@@ -22082,6 +22087,7 @@
           ]
         },
         {
+          "attentionProfile": "standard",
           "customName": true,
           "defaultEnabled": false,
           "id": "monthly_test",
@@ -22102,6 +22108,7 @@
           ]
         },
         {
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": false,
           "id": "exercise",
@@ -22122,6 +22129,7 @@
           ]
         },
         {
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": false,
           "id": "operator_defined",
@@ -22165,6 +22173,7 @@
           ]
         },
         {
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "etws_test",
@@ -22179,6 +22188,7 @@
           ]
         },
         {
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": true,
           "id": "public_safety",
@@ -22193,6 +22203,7 @@
           ]
         },
         {
+          "attentionProfile": "standard",
           "customName": false,
           "defaultEnabled": false,
           "id": "state_local_test",
@@ -22226,7 +22237,206 @@
           "userConfigurable": false
         }
       ],
-      "plmn": "330110"
+      "defaultAttentionProfile": "standard",
+      "defaultVibrationProfile": "wea",
+      "plmn": "330110",
+      "vibrationSourceRef": "47-cfr-10-530"
+    },
+    "332": {
+      "alertSystem": "",
+      "categories": [
+        {
+          "alertLevel": "critical",
+          "attentionPolicy": "silent-dnd-override",
+          "attentionProfile": "critical",
+          "customName": false,
+          "defaultEnabled": true,
+          "id": "presidential",
+          "name": "Presidential alert",
+          "ranges": [
+            {
+              "apply": true,
+              "from": 4370,
+              "mandatory": true,
+              "to": 4370
+            },
+            {
+              "apply": true,
+              "from": 4383,
+              "mandatory": true,
+              "to": 4383
+            }
+          ]
+        },
+        {
+          "attentionProfile": "standard",
+          "customName": false,
+          "defaultEnabled": true,
+          "id": "extreme",
+          "name": "Extreme threats",
+          "ranges": [
+            {
+              "apply": true,
+              "from": 4371,
+              "mandatory": false,
+              "to": 4372
+            },
+            {
+              "apply": true,
+              "from": 4384,
+              "mandatory": false,
+              "to": 4385
+            }
+          ]
+        },
+        {
+          "attentionProfile": "standard",
+          "customName": false,
+          "defaultEnabled": true,
+          "id": "severe",
+          "name": "Severe threats",
+          "ranges": [
+            {
+              "apply": true,
+              "from": 4373,
+              "mandatory": false,
+              "to": 4378
+            },
+            {
+              "apply": true,
+              "from": 4386,
+              "mandatory": false,
+              "to": 4391
+            }
+          ]
+        },
+        {
+          "attentionProfile": "standard",
+          "customName": false,
+          "defaultEnabled": true,
+          "id": "amber",
+          "name": "AMBER alerts",
+          "ranges": [
+            {
+              "apply": true,
+              "from": 4379,
+              "mandatory": false,
+              "to": 4379
+            },
+            {
+              "apply": true,
+              "from": 4392,
+              "mandatory": false,
+              "to": 4392
+            }
+          ]
+        },
+        {
+          "attentionProfile": "standard",
+          "customName": false,
+          "defaultEnabled": false,
+          "id": "monthly_test",
+          "name": "Test alerts",
+          "ranges": [
+            {
+              "apply": true,
+              "from": 4380,
+              "mandatory": false,
+              "to": 4380
+            },
+            {
+              "apply": true,
+              "from": 4393,
+              "mandatory": false,
+              "to": 4393
+            }
+          ]
+        },
+        {
+          "attentionProfile": "standard",
+          "customName": false,
+          "defaultEnabled": false,
+          "id": "exercise",
+          "name": "Emergency alert (exercise)",
+          "ranges": [
+            {
+              "apply": true,
+              "from": 4381,
+              "mandatory": false,
+              "to": 4381
+            },
+            {
+              "apply": true,
+              "from": 4394,
+              "mandatory": false,
+              "to": 4394
+            }
+          ]
+        },
+        {
+          "attentionProfile": "standard",
+          "customName": false,
+          "defaultEnabled": false,
+          "id": "operator_defined",
+          "name": "Emergency alert (operator)",
+          "ranges": [
+            {
+              "apply": true,
+              "from": 4382,
+              "mandatory": false,
+              "to": 4382
+            },
+            {
+              "apply": true,
+              "from": 4395,
+              "mandatory": false,
+              "to": 4395
+            }
+          ]
+        },
+        {
+          "alertLevel": "critical",
+          "attentionPolicy": "silent-dnd-override",
+          "attentionProfile": "critical",
+          "customName": false,
+          "defaultEnabled": true,
+          "id": "etws",
+          "name": "ETWS alerts",
+          "ranges": [
+            {
+              "apply": false,
+              "from": 4352,
+              "mandatory": true,
+              "to": 4354
+            },
+            {
+              "apply": false,
+              "from": 4356,
+              "mandatory": true,
+              "to": 4356
+            }
+          ]
+        },
+        {
+          "attentionProfile": "standard",
+          "customName": false,
+          "defaultEnabled": true,
+          "id": "etws_test",
+          "name": "ETWS test broadcasts",
+          "ranges": [
+            {
+              "apply": false,
+              "from": 4355,
+              "mandatory": true,
+              "to": 4355
+            }
+          ]
+        }
+      ],
+      "defaultAttentionProfile": "standard",
+      "defaultVibrationProfile": "wea",
+      "plmn": "332",
+      "vibrationSourceRef": "47-cfr-10-530"
     },
     "334": {
       "alertSystem": "",
@@ -22791,20 +23001,20 @@
               "apply": true,
               "from": 4370,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4370
             },
             {
               "apply": true,
               "from": 4383,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4383
             }
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": true,
           "defaultEnabled": true,
           "id": "extreme",
@@ -22814,12 +23024,14 @@
               "apply": true,
               "from": 4371,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4371
             },
             {
               "apply": true,
               "from": 4384,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4384
             }
           ]
@@ -22894,12 +23106,14 @@
               "apply": true,
               "from": 4381,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4381
             },
             {
               "apply": true,
               "from": 4394,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4394
             }
           ]
@@ -23005,12 +23219,14 @@
               "apply": true,
               "from": 4370,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4370
             },
             {
               "apply": true,
               "from": 4383,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4383
             }
           ]
@@ -26766,12 +26982,14 @@
               "apply": true,
               "from": 4370,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4370
             },
             {
               "apply": true,
               "from": 4383,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4383
             }
           ]
@@ -26849,12 +27067,14 @@
               "apply": true,
               "from": 4371,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4371
             },
             {
               "apply": true,
               "from": 4384,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4384
             }
           ]
@@ -26897,18 +27117,21 @@
               "apply": true,
               "from": 4370,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4370
             },
             {
               "apply": true,
               "from": 4383,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4383
             },
             {
               "apply": true,
               "from": 40960,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 40960
             }
           ]
@@ -26992,18 +27215,21 @@
               "apply": true,
               "from": 4371,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4371
             },
             {
               "apply": true,
               "from": 4384,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4384
             },
             {
               "apply": true,
               "from": 40961,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 40961
             }
           ]
@@ -27046,18 +27272,21 @@
               "apply": true,
               "from": 4370,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4370
             },
             {
               "apply": true,
               "from": 4383,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4383
             },
             {
               "apply": true,
               "from": 41322,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 41322
             }
           ]
@@ -27141,18 +27370,21 @@
               "apply": true,
               "from": 4371,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4371
             },
             {
               "apply": true,
               "from": 4384,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4384
             },
             {
               "apply": true,
               "from": 41323,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 41323
             }
           ]
@@ -27195,12 +27427,14 @@
               "apply": true,
               "from": 4370,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4370
             },
             {
               "apply": true,
               "from": 4383,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4383
             }
           ]
@@ -27865,6 +28099,7 @@
               "apply": true,
               "from": 4370,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4370
             }
           ]
@@ -28028,20 +28263,20 @@
               "apply": true,
               "from": 4370,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4370
             },
             {
               "apply": true,
               "from": 4383,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4383
             }
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": true,
           "defaultEnabled": true,
           "id": "extreme",
@@ -28051,12 +28286,14 @@
               "apply": true,
               "from": 4371,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4371
             },
             {
               "apply": true,
               "from": 4384,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4384
             }
           ]
@@ -28131,12 +28368,14 @@
               "apply": true,
               "from": 4381,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4381
             },
             {
               "apply": true,
               "from": 4394,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4394
             }
           ]
@@ -28158,17 +28397,17 @@
       ],
       "plmn": "543"
     },
-    "546": {
-      "alertSystem": "FR-ALERT",
+    "544": {
+      "alertSystem": "",
       "categories": [
         {
           "alertLevel": "critical",
           "attentionPolicy": "silent-dnd-override",
           "attentionProfile": "critical",
-          "customName": true,
+          "customName": false,
           "defaultEnabled": true,
           "id": "presidential",
-          "name": "FR-ALERT : Government alert",
+          "name": "Presidential alert",
           "ranges": [
             {
               "apply": true,
@@ -28185,9 +28424,205 @@
           ]
         },
         {
+          "attentionProfile": "standard",
+          "customName": false,
+          "defaultEnabled": true,
+          "id": "extreme",
+          "name": "Extreme threats",
+          "ranges": [
+            {
+              "apply": true,
+              "from": 4371,
+              "mandatory": false,
+              "to": 4372
+            },
+            {
+              "apply": true,
+              "from": 4384,
+              "mandatory": false,
+              "to": 4385
+            }
+          ]
+        },
+        {
+          "attentionProfile": "standard",
+          "customName": false,
+          "defaultEnabled": true,
+          "id": "severe",
+          "name": "Severe threats",
+          "ranges": [
+            {
+              "apply": true,
+              "from": 4373,
+              "mandatory": false,
+              "to": 4378
+            },
+            {
+              "apply": true,
+              "from": 4386,
+              "mandatory": false,
+              "to": 4391
+            }
+          ]
+        },
+        {
+          "attentionProfile": "standard",
+          "customName": false,
+          "defaultEnabled": true,
+          "id": "amber",
+          "name": "AMBER alerts",
+          "ranges": [
+            {
+              "apply": true,
+              "from": 4379,
+              "mandatory": false,
+              "to": 4379
+            },
+            {
+              "apply": true,
+              "from": 4392,
+              "mandatory": false,
+              "to": 4392
+            }
+          ]
+        },
+        {
+          "attentionProfile": "standard",
+          "customName": false,
+          "defaultEnabled": false,
+          "id": "monthly_test",
+          "name": "Test alerts",
+          "ranges": [
+            {
+              "apply": true,
+              "from": 4380,
+              "mandatory": false,
+              "to": 4380
+            },
+            {
+              "apply": true,
+              "from": 4393,
+              "mandatory": false,
+              "to": 4393
+            }
+          ]
+        },
+        {
+          "attentionProfile": "standard",
+          "customName": false,
+          "defaultEnabled": false,
+          "id": "exercise",
+          "name": "Emergency alert (exercise)",
+          "ranges": [
+            {
+              "apply": true,
+              "from": 4381,
+              "mandatory": false,
+              "to": 4381
+            },
+            {
+              "apply": true,
+              "from": 4394,
+              "mandatory": false,
+              "to": 4394
+            }
+          ]
+        },
+        {
+          "attentionProfile": "standard",
+          "customName": false,
+          "defaultEnabled": false,
+          "id": "operator_defined",
+          "name": "Emergency alert (operator)",
+          "ranges": [
+            {
+              "apply": true,
+              "from": 4382,
+              "mandatory": false,
+              "to": 4382
+            },
+            {
+              "apply": true,
+              "from": 4395,
+              "mandatory": false,
+              "to": 4395
+            }
+          ]
+        },
+        {
           "alertLevel": "critical",
           "attentionPolicy": "silent-dnd-override",
           "attentionProfile": "critical",
+          "customName": false,
+          "defaultEnabled": true,
+          "id": "etws",
+          "name": "ETWS alerts",
+          "ranges": [
+            {
+              "apply": false,
+              "from": 4352,
+              "mandatory": true,
+              "to": 4354
+            },
+            {
+              "apply": false,
+              "from": 4356,
+              "mandatory": true,
+              "to": 4356
+            }
+          ]
+        },
+        {
+          "attentionProfile": "standard",
+          "customName": false,
+          "defaultEnabled": true,
+          "id": "etws_test",
+          "name": "ETWS test broadcasts",
+          "ranges": [
+            {
+              "apply": false,
+              "from": 4355,
+              "mandatory": true,
+              "to": 4355
+            }
+          ]
+        }
+      ],
+      "defaultAttentionProfile": "standard",
+      "defaultVibrationProfile": "wea",
+      "plmn": "544",
+      "vibrationSourceRef": "47-cfr-10-530"
+    },
+    "546": {
+      "alertSystem": "FR-ALERT",
+      "categories": [
+        {
+          "alertLevel": "critical",
+          "attentionPolicy": "silent-dnd-override",
+          "attentionProfile": "critical",
+          "customName": true,
+          "defaultEnabled": true,
+          "id": "presidential",
+          "name": "FR-ALERT : Government alert",
+          "ranges": [
+            {
+              "apply": true,
+              "from": 4370,
+              "mandatory": true,
+              "overrideDnd": true,
+              "to": 4370
+            },
+            {
+              "apply": true,
+              "from": 4383,
+              "mandatory": true,
+              "overrideDnd": true,
+              "to": 4383
+            }
+          ]
+        },
+        {
+          "attentionProfile": "standard",
           "customName": true,
           "defaultEnabled": true,
           "id": "extreme",
@@ -28197,12 +28632,14 @@
               "apply": true,
               "from": 4371,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4371
             },
             {
               "apply": true,
               "from": 4384,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4384
             }
           ]
@@ -28277,12 +28714,14 @@
               "apply": true,
               "from": 4381,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4381
             },
             {
               "apply": true,
               "from": 4394,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4394
             }
           ]
@@ -28320,20 +28759,20 @@
               "apply": true,
               "from": 4370,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4370
             },
             {
               "apply": true,
               "from": 4383,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4383
             }
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": true,
           "defaultEnabled": true,
           "id": "extreme",
@@ -28343,12 +28782,14 @@
               "apply": true,
               "from": 4371,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4371
             },
             {
               "apply": true,
               "from": 4384,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4384
             }
           ]
@@ -28423,12 +28864,14 @@
               "apply": true,
               "from": 4381,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4381
             },
             {
               "apply": true,
               "from": 4394,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4394
             }
           ]
@@ -28466,20 +28909,20 @@
               "apply": true,
               "from": 4370,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4370
             },
             {
               "apply": true,
               "from": 4383,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4383
             }
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": true,
           "defaultEnabled": true,
           "id": "extreme",
@@ -28489,12 +28932,14 @@
               "apply": true,
               "from": 4371,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4371
             },
             {
               "apply": true,
               "from": 4384,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4384
             }
           ]
@@ -28569,12 +29014,14 @@
               "apply": true,
               "from": 4381,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4381
             },
             {
               "apply": true,
               "from": 4394,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4394
             }
           ]
@@ -29827,12 +30274,14 @@
               "apply": true,
               "from": 4371,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4372
             },
             {
               "apply": true,
               "from": 4384,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4385
             }
           ]
@@ -30292,12 +30741,14 @@
               "apply": true,
               "from": 919,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 919
             },
             {
               "apply": true,
               "from": 4370,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4370
             }
           ]
@@ -30698,6 +31149,7 @@
               "apply": true,
               "from": 4370,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4370
             }
           ]
@@ -30758,6 +31210,7 @@
               "apply": true,
               "from": 4370,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4370
             }
           ]
@@ -30832,20 +31285,20 @@
               "apply": true,
               "from": 4370,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4370
             },
             {
               "apply": true,
               "from": 4383,
               "mandatory": true,
+              "overrideDnd": true,
               "to": 4383
             }
           ]
         },
         {
-          "alertLevel": "critical",
-          "attentionPolicy": "silent-dnd-override",
-          "attentionProfile": "critical",
+          "attentionProfile": "standard",
           "customName": true,
           "defaultEnabled": true,
           "id": "extreme",
@@ -30855,12 +31308,14 @@
               "apply": true,
               "from": 4371,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4371
             },
             {
               "apply": true,
               "from": 4384,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4384
             }
           ]
@@ -30935,12 +31390,14 @@
               "apply": true,
               "from": 4381,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4381
             },
             {
               "apply": true,
               "from": 4394,
               "mandatory": false,
+              "overrideDnd": true,
               "to": 4394
             }
           ]
@@ -31153,6 +31610,14 @@
     }
   },
   "regulatorySources": {
+    "47-cfr-10-530": {
+      "clauses": [
+        "10.530(a)"
+      ],
+      "source": "47 CFR 10.530",
+      "title": "Common vibration cadence",
+      "url": "https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-10/subpart-E/section-10.530"
+    },
     "as-ca-s042-1-2025-a1-2026": {
       "clauses": [
         "5.2.3.2",
@@ -31171,6 +31636,11 @@
       "source": "AS/CA S042.1",
       "title": "Requirements for connection to an air interface of a Telecommunications Network\u2014 Part 1: General",
       "url": "https://www.austelco.org.au/wp-content/uploads/2026/06/S042-1_2025_incorporating_A1_2026.pdf"
+    },
+    "gov-uk-emergency-alerts": {
+      "source": "GOV.UK",
+      "title": "Emergency Alerts",
+      "url": "https://www.gov.uk/alerts"
     }
   },
   "source": {

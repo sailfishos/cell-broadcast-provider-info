@@ -159,7 +159,11 @@ ATTENTION_PROFILES = {
     },
 }
 
-WEA_MCCS = {"310", "311", "312", "313", "314", "315", "316"}
+# FCC Part 10 WEA regions, including Puerto Rico, the US Virgin Islands, and
+# American Samoa.
+WEA_MCCS = {
+    "310", "311", "312", "313", "314", "315", "316", "330", "332", "544",
+}
 
 # Countries where SailfishOS is officially sold at the time this catalog was
 # added: EU, UK, Norway, and Switzerland. ETSI TS 102 900 requires a dedicated
@@ -214,6 +218,16 @@ def parse_args():
         default=os.path.join(os.path.dirname(__file__), "..", "data",
                              "ausalert-regulatory.json"),
         help="Regulatory override catalog applied after AOSP resources")
+    parser.add_argument(
+        "--regulatory-vibration-policies",
+        default=os.path.join(os.path.dirname(__file__), "..", "data",
+                             "regulatory-vibration-policies.json"),
+        help="Regulatory vibration policies applied after AOSP resources")
+    parser.add_argument(
+        "--regulatory-attention-policies",
+        default=os.path.join(os.path.dirname(__file__), "..", "data",
+                             "regulatory-attention-policies.json"),
+        help="Regulatory attention policies applied after AOSP resources")
     parser.add_argument("--output", required=True)
     return parser.parse_args()
 
@@ -358,6 +372,8 @@ def parse_range_item(item, category):
         "mandatory": category.get("mandatory", False) or attrs.get("always_on") == "true",
         "apply": category.get("apply", True),
     }
+    if attrs.get("override_dnd") == "true":
+        result["overrideDnd"] = True
     vibration_pattern = parse_vibration_pattern(attrs.get("vibration", ""))
     if vibration_pattern:
         result["vibrationPattern"] = vibration_pattern
@@ -369,11 +385,13 @@ def normalize_ranges(ranges):
         return []
     ranges = sorted(ranges, key=lambda r: (
         r["from"], r["to"], r["mandatory"], r["apply"],
+        r.get("overrideDnd", False),
         tuple(r.get("vibrationPattern", []))))
     merged = []
     for item in ranges:
         if (merged and item["mandatory"] == merged[-1]["mandatory"]
                 and item["apply"] == merged[-1]["apply"]
+                and item.get("overrideDnd") == merged[-1].get("overrideDnd")
                 and item.get("vibrationPattern") == merged[-1].get("vibrationPattern")
                 and item["from"] <= merged[-1]["to"] + 1):
             merged[-1]["to"] = max(merged[-1]["to"], item["to"])
@@ -423,6 +441,29 @@ def attention_profile_for_plmn(plmn):
     return ""
 
 
+def is_standard_extreme_attention(plmn, config, category_id):
+    if category_id != "extreme":
+        return False
+
+    return (plmn[:3] in WEA_MCCS
+            or plmn[:3] in EUALERT_MCCS
+            or alert_system_name(config).upper() == "FR-ALERT")
+
+
+def standard_extreme_requires_critical_attention(config, category_id, ranges):
+    if category_id != "extreme":
+        return False
+
+    # FR-Alert Level 2 deliberately follows normal ringtone and Silent-mode
+    # volume policy. Other WEA or EU-Alert country configurations can
+    # explicitly request DND override; the critical event is the only attention
+    # path which can also remain audible when ringtone volume is zero in Silent
+    # mode.
+    if alert_system_name(config).upper() == "FR-ALERT":
+        return False
+    return any(item.get("overrideDnd", False) for item in ranges)
+
+
 def build_entry(plmn, config, default_names, base_vibration_pattern):
     attention_profile = attention_profile_for_plmn(plmn)
     categories = []
@@ -449,12 +490,25 @@ def build_entry(plmn, config, default_names, base_vibration_pattern):
                     "vibrationRepeat"):
             if key in category:
                 category_entry[key] = category[key]
-        if category["id"] in CRITICAL_CATEGORY_IDS:
+        standard_extreme = is_standard_extreme_attention(
+            plmn, config, category["id"])
+        critical_extreme = (
+            standard_extreme
+            and standard_extreme_requires_critical_attention(
+                config, category["id"], ranges))
+        if (category["id"] in CRITICAL_CATEGORY_IDS
+                and not standard_extreme):
             category_entry["alertLevel"] = "critical"
             category_entry["attentionPolicy"] = "silent-dnd-override"
             category_entry["attentionProfile"] = "critical"
-        elif attention_profile and category["id"] in ATTENTION_CATEGORY_IDS:
-            category_entry["attentionProfile"] = attention_profile
+        elif category["id"] in ATTENTION_CATEGORY_IDS:
+            if critical_extreme:
+                category_entry["attentionPolicy"] = "silent-dnd-override"
+                category_entry["attentionProfile"] = "critical"
+            elif standard_extreme:
+                category_entry["attentionProfile"] = "standard"
+            elif attention_profile:
+                category_entry["attentionProfile"] = attention_profile
         categories.append(category_entry)
 
     entry = {
@@ -486,12 +540,7 @@ def collect_configs(res_dir):
 
 
 def read_regulatory_overrides(path):
-    """Read separately maintained national regulatory policy overrides.
-
-    Entries replace AOSP entries for their MCC/PLMN after all AOSP resource
-    overlays have been generated. This lets national regulatory requirements
-    take precedence even if AOSP contains a more-specific PLMN configuration.
-    """
+    """Read separately maintained national regulatory policy data."""
     with open(path) as overrides_file:
         overrides = json.load(overrides_file)
     if not isinstance(overrides.get("entries"), dict):
@@ -511,6 +560,137 @@ def apply_regulatory_overrides(entries, overrides):
             for generated_plmn in list(entries):
                 if generated_plmn != plmn and generated_plmn.startswith(plmn):
                     del entries[generated_plmn]
+
+
+def apply_regulatory_vibration_policies(entries, policies, vibration_profiles):
+    """Merge regulatory vibration policy into matching MCC/PLMN entries."""
+    for plmn, policy in policies["entries"].items():
+        if not isinstance(policy, dict):
+            raise ValueError("Vibration policy entries must be objects")
+        unknown_fields = set(policy) - {
+            "defaultVibrationProfile", "vibrationSourceRef",
+        }
+        if unknown_fields:
+            raise ValueError("Unknown vibration policy fields for %s: %s"
+                             % (plmn, ", ".join(sorted(unknown_fields))))
+        profile_id = policy.get("defaultVibrationProfile", "")
+        if profile_id not in vibration_profiles:
+            raise ValueError("Unknown vibration profile %s for %s"
+                             % (profile_id, plmn))
+        source_ref = policy.get("vibrationSourceRef", "")
+        if source_ref not in policies["sources"]:
+            raise ValueError("Unknown vibration source %s for %s"
+                             % (source_ref, plmn))
+
+        matched = False
+        for generated_plmn, entry in entries.items():
+            if (generated_plmn == plmn
+                    or (len(plmn) == 3 and generated_plmn.startswith(plmn))):
+                entry.update(policy)
+                matched = True
+        if not matched:
+            raise ValueError("Vibration policy %s matches no catalog entry" % plmn)
+
+
+def apply_regulatory_attention_policies(entries, policies, attention_profiles):
+    """Merge regulatory category attention policy into matching entries."""
+    for plmn, policy in policies["entries"].items():
+        if not isinstance(policy, dict):
+            raise ValueError("Attention policy entries must be objects")
+        unknown_fields = set(policy) - {"categories"}
+        if unknown_fields:
+            raise ValueError("Unknown attention policy fields for %s: %s"
+                             % (plmn, ", ".join(sorted(unknown_fields))))
+        category_policies = policy.get("categories")
+        if not isinstance(category_policies, dict):
+            raise ValueError("Attention policy %s must contain categories" % plmn)
+
+        for category_id, category_policy in category_policies.items():
+            if not isinstance(category_policy, dict):
+                raise ValueError("Attention category policies must be objects")
+            unknown_fields = set(category_policy) - {
+                "attentionProfile", "attentionPolicy", "sourceRef",
+            }
+            if unknown_fields:
+                raise ValueError("Unknown attention category fields for %s/%s: %s"
+                                 % (plmn, category_id,
+                                    ", ".join(sorted(unknown_fields))))
+            profile_id = category_policy.get("attentionProfile", "")
+            if profile_id not in attention_profiles:
+                raise ValueError("Unknown attention profile %s for %s/%s"
+                                 % (profile_id, plmn, category_id))
+            source_ref = category_policy.get("sourceRef", "")
+            if source_ref and source_ref not in policies["sources"]:
+                raise ValueError("Unknown attention source %s for %s/%s"
+                                 % (source_ref, plmn, category_id))
+
+            matched = False
+            for generated_plmn, entry in entries.items():
+                if (generated_plmn != plmn
+                        and not (len(plmn) == 3
+                                 and generated_plmn.startswith(plmn))):
+                    continue
+                for category in entry.get("categories", []):
+                    if category.get("id") == category_id:
+                        category.update(category_policy)
+                        matched = True
+            if not matched:
+                raise ValueError("Attention policy %s/%s matches no category"
+                                 % (plmn, category_id))
+
+
+def discard_redundant_vibration_overrides(entries, attention_profiles,
+                                          vibration_profiles):
+    """Drop vibration arrays which do not change the effective pattern."""
+    for entry in entries.values():
+        entry_pattern = entry.get("defaultVibrationPattern")
+        vibration_profile = vibration_profiles.get(
+            entry.get("defaultVibrationProfile"), {})
+        vibration_profile_pattern = vibration_profile.get("vibrationPattern")
+
+        # A named entry policy has higher precedence than an AOSP numeric
+        # default. Once present, the numeric value can no longer affect any
+        # category and should not be preserved as a misleading override.
+        if vibration_profile_pattern and entry_pattern:
+            del entry["defaultVibrationPattern"]
+            entry_pattern = None
+
+        for category in entry.get("categories", []):
+            attention_profile = attention_profiles.get(
+                category.get("attentionProfile"), {})
+            effective_pattern = attention_profile.get("vibrationPattern")
+            if not effective_pattern:
+                attention_vibration_profile = vibration_profiles.get(
+                    attention_profile.get("vibrationProfile"), {})
+                effective_pattern = attention_vibration_profile.get(
+                    "vibrationPattern")
+            if entry_pattern:
+                effective_pattern = entry_pattern
+            if vibration_profile_pattern:
+                effective_pattern = vibration_profile_pattern
+
+            category_pattern = category.get("vibrationPattern")
+            if category_pattern:
+                if effective_pattern and category_pattern == effective_pattern:
+                    del category["vibrationPattern"]
+                else:
+                    effective_pattern = category_pattern
+            if not effective_pattern:
+                continue
+
+            for item in category.get("ranges", []):
+                if item.get("vibrationPattern") == effective_pattern:
+                    del item["vibrationPattern"]
+
+
+def merge_regulatory_sources(*regulatory_data):
+    sources = {}
+    for data in regulatory_data:
+        for source_id, source in data["sources"].items():
+            if source_id in sources and sources[source_id] != source:
+                raise ValueError("Conflicting regulatory source %s" % source_id)
+            sources[source_id] = source
+    return sources
 
 
 def main():
@@ -564,14 +744,30 @@ def main():
 
     try:
         regulatory_overrides = read_regulatory_overrides(args.regulatory_overrides)
+        attention_policies = read_regulatory_overrides(
+            args.regulatory_attention_policies)
+        vibration_policies = read_regulatory_overrides(
+            args.regulatory_vibration_policies)
+        regulatory_sources = merge_regulatory_sources(
+            regulatory_overrides, attention_policies, vibration_policies)
     except (OSError, ValueError, json.JSONDecodeError) as error:
-        sys.stderr.write("Unable to read regulatory overrides: %s\n" % error)
+        sys.stderr.write("Unable to read regulatory policy: %s\n" % error)
         return 1
 
     # Apply policy last. An MCC policy deliberately replaces every AOSP
     # PLMN-specific entry below it, because regulator requirements govern all
     # Australian operators rather than a selected carrier resource overlay.
     apply_regulatory_overrides(entries, regulatory_overrides)
+    try:
+        apply_regulatory_attention_policies(
+            entries, attention_policies, ATTENTION_PROFILES)
+        apply_regulatory_vibration_policies(
+            entries, vibration_policies, VIBRATION_PROFILES)
+    except ValueError as error:
+        sys.stderr.write("Unable to apply regulatory policy: %s\n" % error)
+        return 1
+    discard_redundant_vibration_overrides(
+        entries, ATTENTION_PROFILES, VIBRATION_PROFILES)
 
     catalog = {
         "version": 1,
@@ -589,7 +785,7 @@ def main():
                 "47 CFR 10.530",
             ],
         },
-        "regulatorySources": regulatory_overrides["sources"],
+        "regulatorySources": regulatory_sources,
         "entries": entries,
     }
 
