@@ -1,0 +1,167 @@
+{
+  "sources": {
+    "as-ca-s042-1-2025-a1-2026": {
+      "source": "AS/CA S042.1",
+      "edition": "2025 + Amendment No. 1/2026",
+      "title": "Requirements for connection to an air interface of a Telecommunications Network— Part 1: General",
+      "url": "https://www.austelco.org.au/wp-content/uploads/2026/06/S042-1_2025_incorporating_A1_2026.pdf",
+      "clauses": [
+        "5.2.3.2",
+        "5.2.3.3",
+        "5.2.3.4",
+        "5.2.3.5",
+        "5.2.3.6",
+        "5.2.3.7",
+        "5.2.3.11",
+        "5.2.3.12",
+        "5.2.3.13",
+        "5.2.3.14",
+        "5.2.3.15"
+      ]
+    }
+  },
+  "entries": {
+    "505": {
+      "alertSystem": "AusAlert",
+      "defaultAttentionProfile": "standard",
+      "categories": [
+        {
+          "id": "ausalert_critical",
+          "name": "Critical AusAlert",
+          "title": "Critical AusAlert",
+          "alertLevel": "critical",
+          "customName": true,
+          "defaultEnabled": true,
+          "userConfigurable": false,
+          "settingsVisible": true,
+          "display": "alert",
+          "attentionPolicy": "silent-dnd-override",
+          "attentionProfile": "critical",
+          "sourceRef": "as-ca-s042-1-2025-a1-2026",
+          "clause": "5.2.3.5",
+          "ranges": [
+            { "from": 4370, "to": 4370, "mandatory": true, "apply": true, "languageRole": "local" },
+            { "from": 4383, "to": 4383, "mandatory": true, "apply": true, "languageRole": "additional" }
+          ]
+        },
+        {
+          "id": "ausalert_priority",
+          "name": "Priority AusAlert",
+          "title": "Priority AusAlert",
+          "alertLevel": "priority",
+          "customName": true,
+          "defaultEnabled": true,
+          "userConfigurable": true,
+          "settingsVisible": true,
+          "display": "alert",
+          "attentionPolicy": "standard",
+          "attentionProfile": "standard",
+          "vibrationPattern": [
+            0, 500, 500, 500, 500, 500, 500,
+            1000, 500, 1000, 500, 1000, 500,
+            500, 500, 500, 500, 500, 500
+          ],
+          "sourceRef": "as-ca-s042-1-2025-a1-2026",
+          "clause": "5.2.3.6",
+          "ranges": [
+            { "from": 4371, "to": 4371, "mandatory": false, "apply": true, "languageRole": "local" },
+            { "from": 4384, "to": 4384, "mandatory": false, "apply": true, "languageRole": "additional" }
+          ]
+        },
+        {
+          "id": "ausalert_exercise",
+          "name": "Exercise",
+          "title": "Exercise",
+          "alertLevel": "exercise",
+          "customName": true,
+          "defaultEnabled": true,
+          "userConfigurable": true,
+          "settingsVisible": true,
+          "display": "alert",
+          "attentionPolicy": "standard",
+          "attentionProfile": "standard",
+          "sourceRef": "as-ca-s042-1-2025-a1-2026",
+          "clause": "5.2.3.11",
+          "ranges": [
+            { "from": 4381, "to": 4381, "mandatory": false, "apply": true, "languageRole": "local" },
+            { "from": 4394, "to": 4394, "mandatory": false, "apply": true, "languageRole": "additional" }
+          ]
+        },
+        {
+          "id": "ausalert_monthly_test",
+          "name": "Test",
+          "title": "Test",
+          "alertLevel": "test",
+          "customName": true,
+          "defaultEnabled": false,
+          "userConfigurable": true,
+          "settingsVisible": true,
+          "display": "alert",
+          "attentionPolicy": "standard",
+          "attentionProfile": "standard",
+          "sourceRef": "as-ca-s042-1-2025-a1-2026",
+          "clause": "5.2.3.12",
+          "ranges": [
+            { "from": 4380, "to": 4380, "mandatory": false, "apply": true, "languageRole": "local" },
+            { "from": 4393, "to": 4393, "mandatory": false, "apply": true, "languageRole": "additional" }
+          ]
+        },
+        {
+          "id": "ausalert_operator_test",
+          "name": "Operator Test",
+          "title": "Operator Test",
+          "alertLevel": "operator-test",
+          "customName": true,
+          "defaultEnabled": false,
+          "userConfigurable": true,
+          "settingsVisible": true,
+          "display": "alert",
+          "attentionPolicy": "standard",
+          "attentionProfile": "standard",
+          "sourceRef": "as-ca-s042-1-2025-a1-2026",
+          "clause": "5.2.3.13",
+          "ranges": [
+            { "from": 4382, "to": 4382, "mandatory": false, "apply": true, "languageRole": "local" },
+            { "from": 4395, "to": 4395, "mandatory": false, "apply": true, "languageRole": "additional" }
+          ]
+        },
+        {
+          "id": "ausalert_state_local_test",
+          "name": "State/Local Test",
+          "title": "State/Local Test",
+          "alertLevel": "state-local-test",
+          "customName": true,
+          "defaultEnabled": true,
+          "userConfigurable": true,
+          "settingsVisible": true,
+          "display": "alert",
+          "attentionPolicy": "standard",
+          "attentionProfile": "standard",
+          "sourceRef": "as-ca-s042-1-2025-a1-2026",
+          "clause": "5.2.3.14",
+          "ranges": [
+            { "from": 4398, "to": 4398, "mandatory": false, "apply": true, "languageRole": "local" },
+            { "from": 4399, "to": 4399, "mandatory": false, "apply": true, "languageRole": "additional" }
+          ]
+        },
+        {
+          "id": "ausalert_dbgf",
+          "name": "Device-Based Geo-Fencing",
+          "title": "Device-Based Geo-Fencing",
+          "alertLevel": "geofencing",
+          "customName": true,
+          "defaultEnabled": true,
+          "userConfigurable": false,
+          "settingsVisible": false,
+          "display": "none",
+          "attentionPolicy": "none",
+          "sourceRef": "as-ca-s042-1-2025-a1-2026",
+          "clause": "5.2.3.7",
+          "ranges": [
+            { "from": 4400, "to": 4400, "mandatory": true, "apply": true, "languageRole": "not-applicable" }
+          ]
+        }
+      ]
+    }
+  }
+}
