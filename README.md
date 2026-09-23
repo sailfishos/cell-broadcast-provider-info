@@ -41,12 +41,10 @@ records the exact source commit in the JSON metadata. The catalog contains:
   policy.
 - Default and country-specific public-warning vibration patterns.
 
-`data/ausalert-regulatory.json` is a separately maintained Australian
-regulatory policy source. The generator applies it after every AOSP MCC and
-PLMN resource overlay, so its MCC `505` policy also wins over generated
-`505xx` carrier entries. Its source, edition, and applicable AS/CA clause are
-copied to `regulatorySources`, `sourceRef`, and `clause` in the generated
-catalog. The original AOSP `source.commit` remains the pinned source commit.
+Optional national policies are installed by separate packages into
+`/usr/share/cell-broadcast-provider-info/overrides.d/`. The base catalogue does
+not embed those overlays or depend on private policy repositories. See
+[Runtime overlays](#runtime-overlays) below.
 
 `data/regulatory-vibration-policies.json` supplies independent national
 vibration policy. An MCC policy is merged into the MCC entry and all of its
@@ -67,8 +65,7 @@ base schema: `title`, `alertLevel`, `userConfigurable`,
 override `vibrationPattern`; `overrideDnd` retains an explicit AOSP range
 requirement. Entries may use `defaultVibrationPattern` for a country or
 operator default, or `defaultVibrationProfile` plus
-`vibrationSourceRef` for a named regulatory vibration policy. DBGF channel
-4400 is mandatory for all MCC 505 equipment.
+`vibrationSourceRef` for a named regulatory vibration policy.
 
 3GPP TS 23.041 and TS 22.268 are used as normative cross-checks for Cell
 Broadcast topic handling. National regulator sources should override AOSP
@@ -90,9 +87,8 @@ Both profiles point at the same private `853 Hz + 960 Hz` two-tone asset and
 select different attention events. Their vibration is selected independently:
 `standard` leaves vibration to the platform's existing attention haptic,
 while `critical` references the repeating `sos` profile. The separate `wea`
-profile is selected only by explicit national policy. AusAlert Level 2 uses
-the SOS pattern as a category override while retaining the standard attention
-policy and a single vibration cycle. Explicit attention vibration profiles
+profile is selected only by explicit national policy. Category policy can
+select a different pattern independently of sound. Explicit attention vibration profiles
 also carry resolved fields so consumers built for the earlier catalog remain
 compatible.
 
@@ -114,9 +110,9 @@ the generated catalog.
 The generic `critical` profile is assigned to categories with explicit
 highest-severity semantics: presidential/national alerts, extreme threats
 outside WEA and EU-Alert Level 2, real ETWS warnings, and national regulatory
-categories such as Critical AusAlert. It may also be selected by explicit
+categories with critical attention policy. It may also be selected by explicit
 country attention policy, including `override_dnd` on an otherwise standard
-Extreme category. Priority AusAlert, WEA Extreme, FR-Alert Level 2, and all
+Extreme category. WEA Extreme, FR-Alert Level 2, and all
 test/exercise categories retain normal profile-controlled attention. Critical
 attention is not inferred from `mandatory`, because mandatory ranges also
 include some test and lower-severity categories.
@@ -132,11 +128,11 @@ tools/generate-cellbroadcast-catalog.py \
     --output data/channels.json
 ```
 
-The default `--regulatory-overrides` value is
-`data/ausalert-regulatory.json`; supply that option to use an alternate
-regulatory source for review or testing. The corresponding
-`--regulatory-attention-policies` and `--regulatory-vibration-policies`
-defaults are `data/regulatory-attention-policies.json` and
+No separately packaged national overlays are merged by default. For an explicit
+combined catalogue, repeat `--regulatory-overrides PATH`. Do not use private
+policy inputs when generating the public base package.
+The `--regulatory-attention-policies` and `--regulatory-vibration-policies`
+defaults remain `data/regulatory-attention-policies.json` and
 `data/regulatory-vibration-policies.json`.
 
 The attention-tone asset is generated during package installation. To generate
@@ -148,3 +144,49 @@ tools/generate-cellbroadcast-attention-tones.py --output-dir attention-tones
 
 The tone generator uses `ffmpeg` when available, falling back to
 `gst-launch-1.0`.
+
+## Presentation policy
+
+Categories can specify these optional fields. Existing catalogues keep their
+previous behaviour when the fields are absent.
+
+| Field | Values / default | Meaning |
+| --- | --- | --- |
+| `attentionMode` | `warning` (default), `silent`, `sms` | Dedicated warning tone, no sound or haptic, or the user's SMS-tone profile. Explicit silence and SMS policy never fall back to critical attention. |
+| `attentionDurationMs` | 0 (default), up to 600000 | Stop feedback after this interval without acknowledging or dismissing the alert. Zero leaves duration to the event. Completion is persisted as silence. |
+| `attentionRepeat` | true (default) | Select repeating or single-play warning feedback. SMS follows SMS-tone behaviour. Haptic repetition remains independently controlled by `vibrationRepeat`. |
+| `languageFilter` | `device` (default), `none` | Existing device-language selection for additional-language ranges, or presentation of each received language. With `none`, retransmissions still deduplicate, but different languages remain separate queued/history records. |
+| `description` | empty | Settings explanation; empty retains the channel-number description. |
+| `translations` | empty object | Language-tag keyed objects containing `name`, `title`, and/or `description`. Keys are lowercase BCP-47-style tags. The UI tries the full locale, then the language, then the base string. |
+
+The mode, timing and translation metadata travel with persisted alerts, so
+history and resumed presentation use the same policy. Language tags are not
+truncated to two characters.
+
+
+## Runtime overlays
+
+Independent data packages may install JSON supplements in
+`/usr/share/cell-broadcast-provider-info/overrides.d/`. The loader reads
+`channels.json` first and then `*.json` supplements in filename order. It also
+uses an adjacent `overrides.d` directory when given a custom catalogue path.
+An absent or empty directory preserves the base catalogue.
+
+Each supplement contains `"version": 1`, a `sources` object using the same
+provenance format as the generator, and an `entries` object containing complete
+MCC or PLMN entries. Shared attention and vibration profiles come from the base
+catalogue. Supplements cannot replace those profiles or the default entry.
+An MCC entry replaces its base entry and removes earlier carrier entries under
+that MCC. Explicit PLMN entries in the same file are applied after the MCC.
+Later files take precedence. Identical source definitions may be repeated;
+conflicting provenance, invalid entries, unsupported versions and malformed
+JSON cause catalogue loading to fail with the offending filename.
+
+Policies using localized presentation and attention controls require
+`cell-broadcast-presentation-policy >= 1`. This capability is provided by the
+coordinated phone UI package.
+
+Restart `voicecall-manager` after installing, updating or removing supplements;
+the process caches its catalogue. Removing a supplement restores the base
+policy after restart. Supplements are optional and maintained in independent
+repositories so their publication and distribution can be controlled separately.

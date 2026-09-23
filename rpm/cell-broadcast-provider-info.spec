@@ -30,6 +30,8 @@ Contains development files for %{name}.
 %setup -q -n %{name}-%{version}
 
 %install
+install -d -m 0755 \
+    %{buildroot}%{_datadir}/cell-broadcast-provider-info/overrides.d
 install -D -m 0644 data/channels.json \
     %{buildroot}%{_datadir}/cell-broadcast-provider-info/channels.json
 

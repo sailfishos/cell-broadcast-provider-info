@@ -18,51 +18,11 @@ def load_generator():
     return module
 
 
-class AusAlertCatalogTest(unittest.TestCase):
+class CatalogTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         with open(CATALOG_PATH) as catalog_file:
             cls.catalog = json.load(catalog_file)
-
-    def category(self, category_id):
-        return next(category for category in self.catalog["entries"]["505"]["categories"]
-                    if category["id"] == category_id)
-
-    def test_ausalert_regulatory_policy(self):
-        self.assertEqual("505", self.catalog["entries"]["505"]["plmn"])
-        critical = self.category("ausalert_critical")
-        self.assertEqual("Critical AusAlert", critical["title"])
-        self.assertTrue(critical["defaultEnabled"])
-        self.assertFalse(critical["userConfigurable"])
-        self.assertEqual("silent-dnd-override", critical["attentionPolicy"])
-        self.assertEqual([4370, 4383], [item["from"] for item in critical["ranges"]])
-        self.assertEqual(["local", "additional"],
-                         [item["languageRole"] for item in critical["ranges"]])
-        self.assertTrue(all(item["mandatory"] for item in critical["ranges"]))
-
-        expected = {
-            "ausalert_priority": ("Priority AusAlert", [4371, 4384], True),
-            "ausalert_exercise": ("Exercise", [4381, 4394], True),
-            "ausalert_monthly_test": ("Test", [4380, 4393], False),
-            "ausalert_operator_test": ("Operator Test", [4382, 4395], False),
-            "ausalert_state_local_test": ("State/Local Test", [4398, 4399], True),
-        }
-        for category_id, (title, channels, enabled) in expected.items():
-            category = self.category(category_id)
-            self.assertEqual(title, category["title"])
-            self.assertEqual(enabled, category["defaultEnabled"])
-            self.assertTrue(category["userConfigurable"])
-            self.assertEqual(channels, [item["from"] for item in category["ranges"]])
-
-        dbgf = self.category("ausalert_dbgf")
-        self.assertTrue(dbgf["defaultEnabled"])
-        self.assertFalse(dbgf["userConfigurable"])
-        self.assertFalse(dbgf["settingsVisible"])
-        self.assertEqual("none", dbgf["display"])
-        self.assertEqual(4400, dbgf["ranges"][0]["from"])
-        self.assertTrue(dbgf["ranges"][0]["mandatory"])
-        self.assertEqual("geofencing", dbgf["alertLevel"])
-        self.assertEqual("none", dbgf["attentionPolicy"])
 
     def test_geo_fencing_is_hidden_control_traffic(self):
         geo_fencing_categories = [
@@ -89,10 +49,6 @@ class AusAlertCatalogTest(unittest.TestCase):
                             and not category["userConfigurable"]
                             and not category["settingsVisible"]
                             for category in channel_4400_categories))
-
-        dbgf = self.category("ausalert_dbgf")
-        self.assertEqual([4400], [item["from"] for item in dbgf["ranges"]])
-        self.assertTrue(all(item["mandatory"] for item in dbgf["ranges"]))
 
     def test_attention_profiles_and_provenance(self):
         profiles = self.catalog["attentionProfiles"]
@@ -121,16 +77,6 @@ class AusAlertCatalogTest(unittest.TestCase):
                          profiles["critical"]["vibrationPattern"])
         self.assertEqual(vibration_profiles["sos"]["vibrationRepeat"],
                          profiles["critical"]["vibrationRepeat"])
-        self.assertEqual("critical",
-                         self.category("ausalert_critical")["attentionProfile"])
-        self.assertEqual(
-            vibration_profiles["sos"]["vibrationPattern"],
-            self.category("ausalert_priority")["vibrationPattern"])
-        self.assertNotIn("vibrationRepeat", self.category("ausalert_priority"))
-        for category in self.catalog["entries"]["505"]["categories"]:
-            if (category["id"] != "ausalert_critical"
-                    and "attentionProfile" in category):
-                self.assertEqual("standard", category["attentionProfile"])
         for plmn in ("262", "310"):
             entry = self.catalog["entries"][plmn]
             self.assertEqual("standard", entry["defaultAttentionProfile"])
@@ -138,15 +84,6 @@ class AusAlertCatalogTest(unittest.TestCase):
                 if (category["id"] not in {"presidential", "extreme", "etws"}
                         and "attentionProfile" in category):
                     self.assertEqual("standard", category["attentionProfile"])
-        source = self.catalog["regulatorySources"]["as-ca-s042-1-2025-a1-2026"]
-        self.assertEqual("AS/CA S042.1", source["source"])
-        self.assertEqual("2025 + Amendment No. 1/2026", source["edition"])
-        self.assertEqual(
-            "Requirements for connection to an air interface of a "
-            "Telecommunications Network— Part 1: General", source["title"])
-        self.assertIn("5.2.3.2", source["clauses"])
-        self.assertIn("5.2.3.5", source["clauses"])
-        self.assertIn("5.2.3.15", source["clauses"])
 
     def test_aosp_vibration_overrides(self):
         inline_patterns = {
@@ -350,15 +287,26 @@ class AusAlertCatalogTest(unittest.TestCase):
 
     def test_mcc_override_sets_plmn_and_removes_aosp_plmn_entries(self):
         generator = load_generator()
-        entries = {"50501": {"plmn": "50501"}, "50502": {"plmn": "50502"}}
-        overrides = {"entries": {"505": {"categories": []}}}
+        entries = {"99901": {"plmn": "99901"}, "99902": {"plmn": "99902"}}
+        overrides = {"entries": {"999": {"categories": []}}}
         generator.apply_regulatory_overrides(entries, overrides)
-        self.assertEqual({"505"}, set(entries))
-        self.assertEqual("505", entries["505"]["plmn"])
+        self.assertEqual({"999"}, set(entries))
+        self.assertEqual("999", entries["999"]["plmn"])
+
+    def test_same_overlay_keeps_explicit_carrier_exception(self):
+        generator = load_generator()
+        entries = {"99901": {"plmn": "99901"}}
+        overrides = {"entries": {
+            "99902": {"categories": []},
+            "999": {"categories": []},
+        }}
+        generator.apply_regulatory_overrides(entries, overrides)
+        self.assertEqual({"999", "99902"}, set(entries))
+        self.assertEqual("99902", entries["99902"]["plmn"])
 
     def test_generic_critical_attention_policy(self):
         generator = load_generator()
-        critical_ids = {"presidential", "extreme", "etws", "ausalert_critical"}
+        critical_ids = {"presidential", "extreme", "etws"}
         mandatory_noncritical = 0
 
         for plmn, entry in self.catalog["entries"].items():

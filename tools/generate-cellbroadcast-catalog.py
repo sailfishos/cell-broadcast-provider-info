@@ -214,10 +214,9 @@ def parse_args():
     parser.add_argument("--commit", required=True,
                         help="Pinned AOSP commit SHA")
     parser.add_argument(
-        "--regulatory-overrides",
-        default=os.path.join(os.path.dirname(__file__), "..", "data",
-                             "ausalert-regulatory.json"),
-        help="Regulatory override catalog applied after AOSP resources")
+        "--regulatory-overrides", action="append", default=[],
+        help="Regulatory override catalog; repeat for multiple overlays. "
+             "No full-entry overlays are applied by default.")
     parser.add_argument(
         "--regulatory-vibration-policies",
         default=os.path.join(os.path.dirname(__file__), "..", "data",
@@ -547,12 +546,37 @@ def read_regulatory_overrides(path):
         raise ValueError("Regulatory overrides must contain an entries object")
     if not isinstance(overrides.get("sources"), dict):
         raise ValueError("Regulatory overrides must contain a sources object")
+    for entry in overrides["entries"].values():
+        categories = entry.get("categories", [])
+        if not isinstance(categories, list):
+            # Partial attention policies validate their category maps separately.
+            continue
+        for category in categories:
+            if category.get("attentionMode", "warning") not in ("warning", "silent", "sms"):
+                raise ValueError("Invalid attentionMode")
+            if category.get("languageFilter", "device") not in ("device", "none"):
+                raise ValueError("Invalid languageFilter")
+            duration = category.get("attentionDurationMs", 0)
+            if type(duration) is not int or not 0 <= duration <= 600000:
+                raise ValueError("attentionDurationMs must be an integer in 0..600000")
+            if type(category.get("attentionRepeat", True)) is not bool:
+                raise ValueError("attentionRepeat must be a boolean")
+            translations = category.get("translations", {})
+            if not isinstance(translations, dict):
+                raise ValueError("translations must be an object")
+            for locale, fields in translations.items():
+                if not re.fullmatch(r"[a-z]{2,3}(?:-[a-z0-9]+)*", locale):
+                    raise ValueError("Translation locale must be a normalized language tag")
+                if not isinstance(fields, dict) or set(fields) - {"name", "title", "description"}:
+                    raise ValueError("Invalid translation fields")
+                if not all(isinstance(value, str) for value in fields.values()):
+                    raise ValueError("Translations must be strings")
     return overrides
 
 
 def apply_regulatory_overrides(entries, overrides):
     """Apply MCC/PLMN regulatory policy after AOSP resource generation."""
-    for plmn, entry in overrides["entries"].items():
+    for plmn, entry in sorted(overrides["entries"].items()):
         entry = dict(entry)
         entry["plmn"] = plmn
         entries[plmn] = entry
@@ -743,21 +767,23 @@ def main():
             base["integer_arrays"].get("default_vibration_pattern", []))
 
     try:
-        regulatory_overrides = read_regulatory_overrides(args.regulatory_overrides)
+        regulatory_overrides = [read_regulatory_overrides(path)
+                                for path in args.regulatory_overrides]
         attention_policies = read_regulatory_overrides(
             args.regulatory_attention_policies)
         vibration_policies = read_regulatory_overrides(
             args.regulatory_vibration_policies)
         regulatory_sources = merge_regulatory_sources(
-            regulatory_overrides, attention_policies, vibration_policies)
+            *(regulatory_overrides + [attention_policies, vibration_policies]))
     except (OSError, ValueError, json.JSONDecodeError) as error:
         sys.stderr.write("Unable to read regulatory policy: %s\n" % error)
         return 1
 
     # Apply policy last. An MCC policy deliberately replaces every AOSP
     # PLMN-specific entry below it, because regulator requirements govern all
-    # Australian operators rather than a selected carrier resource overlay.
-    apply_regulatory_overrides(entries, regulatory_overrides)
+    # operators rather than a selected carrier resource overlay.
+    for overlay in regulatory_overrides:
+        apply_regulatory_overrides(entries, overlay)
     try:
         apply_regulatory_attention_policies(
             entries, attention_policies, ATTENTION_PROFILES)
