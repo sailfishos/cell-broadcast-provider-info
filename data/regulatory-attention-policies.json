@@ -1,0 +1,29 @@
+{
+  "sources": {
+    "gov-uk-emergency-alerts": {
+      "source": "GOV.UK",
+      "title": "Emergency Alerts",
+      "url": "https://www.gov.uk/alerts"
+    }
+  },
+  "entries": {
+    "234": {
+      "categories": {
+        "extreme": {
+          "attentionProfile": "critical",
+          "attentionPolicy": "silent-dnd-override",
+          "sourceRef": "gov-uk-emergency-alerts"
+        }
+      }
+    },
+    "235": {
+      "categories": {
+        "extreme": {
+          "attentionProfile": "critical",
+          "attentionPolicy": "silent-dnd-override",
+          "sourceRef": "gov-uk-emergency-alerts"
+        }
+      }
+    }
+  }
+}
