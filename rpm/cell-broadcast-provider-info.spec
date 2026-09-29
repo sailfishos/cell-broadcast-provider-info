@@ -29,19 +29,31 @@ Contains development files for %{name}.
 %prep
 %setup -q -n %{name}-%{version}
 
+%check
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -v
+
 %install
+install -d -m 0755 \
+    %{buildroot}%{_datadir}/cell-broadcast-provider-info/overrides.d
 install -D -m 0644 data/channels.json \
     %{buildroot}%{_datadir}/cell-broadcast-provider-info/channels.json
 
+install -d -m 0755 \
+    %{buildroot}%{_datadir}/cell-broadcast-provider-info/attention-tones
 python3 tools/generate-cellbroadcast-attention-tones.py \
     --output-dir %{buildroot}%{_datadir}/cell-broadcast-provider-info/attention-tones
+chmod 0644 \
+    %{buildroot}%{_datadir}/cell-broadcast-provider-info/attention-tones/cellbroadcast-attention-853-960.ogg
 
 install -D -m 0644 cell-broadcast-provider-info.pc \
     %{buildroot}%{_datadir}/pkgconfig/cell-broadcast-provider-info.pc
 
 %files
 %license LICENSE
-%{_datadir}/cell-broadcast-provider-info
+%dir %{_datadir}/cell-broadcast-provider-info
+%dir %{_datadir}/cell-broadcast-provider-info/overrides.d
+%{_datadir}/cell-broadcast-provider-info/channels.json
+%{_datadir}/cell-broadcast-provider-info/attention-tones
 
 %files devel
 %{_datadir}/pkgconfig/cell-broadcast-provider-info.pc
