@@ -1,0 +1,294 @@
+{
+  "sources": {
+    "fi-alert-intake-v6": {
+      "source": "FI-Alert requirement intake",
+      "edition": "V6 (2026-08-06)"
+    }
+  },
+  "entries": {
+    "244": {
+      "alertSystem": "FI-Alert",
+      "defaultAttentionProfile": "standard",
+      "defaultVibrationProfile": "wea",
+      "categories": [
+        {
+          "id": "presidential",
+          "name": "FI-Alert Severe Alert",
+          "title": "FI-Alert Severe Alert",
+          "description": "Severe threat to life or property",
+          "customName": true,
+          "alertLevel": "critical",
+          "defaultEnabled": true,
+          "userConfigurable": false,
+          "settingsVisible": true,
+          "display": "alert",
+          "attentionMode": "warning",
+          "attentionPolicy": "silent-dnd-override",
+          "attentionRepeat": false,
+          "languageFilter": "none",
+          "sourceRef": "fi-alert-intake-v6",
+          "translations": {
+            "fi": {
+              "title": "FI-Alert vaaratiedote",
+              "name": "FI-Alert vaaratiedote",
+              "description": "Hengen- tai terveydenvaara tai vaara merkittävälle omaisuusvahingolle"
+            },
+            "sv": {
+              "title": "FI-Alert varningsmeddelande",
+              "name": "FI-Alert varningsmeddelande",
+              "description": "Fara för människors liv eller hälsa eller omfattande skada av egendom"
+            }
+          },
+          "ranges": [
+            {
+              "from": 4370,
+              "to": 4370,
+              "mandatory": true,
+              "apply": true,
+              "languageRole": "local"
+            },
+            {
+              "from": 4383,
+              "to": 4383,
+              "mandatory": true,
+              "apply": true,
+              "languageRole": "additional"
+            }
+          ],
+          "attentionProfile": "critical",
+          "attentionDurationMs": 10500,
+          "vibrationRepeat": false
+        },
+        {
+          "id": "severe",
+          "name": "FI-Alert Severe Alert (Silent)",
+          "title": "FI-Alert Severe Alert (Silent)",
+          "description": "Silent Severe Alert",
+          "customName": true,
+          "alertLevel": "severe",
+          "defaultEnabled": true,
+          "userConfigurable": true,
+          "settingsVisible": true,
+          "display": "alert",
+          "attentionMode": "silent",
+          "attentionPolicy": "none",
+          "attentionRepeat": false,
+          "languageFilter": "none",
+          "sourceRef": "fi-alert-intake-v6",
+          "translations": {
+            "fi": {
+              "title": "FI-Alert vaaratiedote (äänetön)",
+              "name": "FI-Alert vaaratiedote (äänetön)",
+              "description": "Äänetön vaaratiedote"
+            },
+            "sv": {
+              "title": "FI-Alert varningsmeddelande (ljudlös)",
+              "name": "FI-Alert varningsmeddelande (ljudlös)",
+              "description": "Ljudlöst varningsmeddelande"
+            }
+          },
+          "ranges": [
+            {
+              "from": 4373,
+              "to": 4378,
+              "mandatory": false,
+              "apply": true,
+              "languageRole": "local"
+            },
+            {
+              "from": 4386,
+              "to": 4391,
+              "mandatory": false,
+              "apply": true,
+              "languageRole": "additional"
+            }
+          ],
+          "vibrationRepeat": false
+        },
+        {
+          "id": "public_safety",
+          "name": "FI-Alert Public Authority Announcement",
+          "title": "FI-Alert Public Authority Announcement",
+          "description": "Possible threat to life or property",
+          "customName": true,
+          "alertLevel": "public-safety",
+          "defaultEnabled": true,
+          "userConfigurable": true,
+          "settingsVisible": true,
+          "display": "alert",
+          "attentionMode": "sms",
+          "attentionPolicy": "standard",
+          "attentionRepeat": false,
+          "languageFilter": "none",
+          "sourceRef": "fi-alert-intake-v6",
+          "translations": {
+            "fi": {
+              "title": "FI-Alert viranomaistiedote",
+              "name": "FI-Alert viranomaistiedote",
+              "description": "Viranomaistiedote ihmisten tai omaisuuden suojelemiseksi"
+            },
+            "sv": {
+              "title": "FI-Alert myndighetsmeddelande",
+              "name": "FI-Alert myndighetsmeddelande",
+              "description": "Myndighetsmeddelanden för att skydda människor eller egendom"
+            }
+          },
+          "ranges": [
+            {
+              "from": 4396,
+              "to": 4396,
+              "mandatory": false,
+              "apply": true,
+              "languageRole": "local"
+            },
+            {
+              "from": 4397,
+              "to": 4397,
+              "mandatory": false,
+              "apply": true,
+              "languageRole": "additional"
+            }
+          ],
+          "attentionProfile": "standard",
+          "vibrationRepeat": false
+        },
+        {
+          "id": "monthly_test",
+          "name": "FI-Alert Test Alert",
+          "title": "FI-Alert TEST Alert",
+          "description": "Test Alert",
+          "customName": true,
+          "alertLevel": "test",
+          "defaultEnabled": false,
+          "userConfigurable": true,
+          "settingsVisible": true,
+          "display": "alert",
+          "attentionMode": "warning",
+          "attentionPolicy": "standard",
+          "attentionRepeat": false,
+          "languageFilter": "none",
+          "sourceRef": "fi-alert-intake-v6",
+          "translations": {
+            "fi": {
+              "title": "FI-Alert TESTI: vaaratiedotteiden välitysjärjestelmän kokeilu",
+              "name": "FI-Alert vaaratiedotteiden välitysjärjestelmän kokeilu",
+              "description": "Vaaratiedotteiden välitysjärjestelmän kokeilu"
+            },
+            "sv": {
+              "title": "FI-Alert TEST om förmedlingssystemet för varningsmeddelanden",
+              "name": "FI-Alert test om förmedlingssystemet för varningsmeddelanden",
+              "description": "Vest om förmedlingssystemet för varningsmeddelanden"
+            }
+          },
+          "ranges": [
+            {
+              "from": 4380,
+              "to": 4380,
+              "mandatory": false,
+              "apply": true,
+              "languageRole": "local"
+            },
+            {
+              "from": 4393,
+              "to": 4393,
+              "mandatory": false,
+              "apply": true,
+              "languageRole": "additional"
+            }
+          ],
+          "attentionProfile": "standard",
+          "attentionDurationMs": 10500,
+          "vibrationRepeat": false
+        },
+        {
+          "id": "exercise",
+          "name": "FI-Alert Exercise Alert",
+          "title": "FI-Alert Exercise Alert",
+          "description": "Exercise Alert",
+          "customName": true,
+          "alertLevel": "exercise",
+          "defaultEnabled": false,
+          "userConfigurable": true,
+          "settingsVisible": true,
+          "display": "alert",
+          "attentionMode": "warning",
+          "attentionPolicy": "standard",
+          "attentionRepeat": false,
+          "languageFilter": "none",
+          "sourceRef": "fi-alert-intake-v6",
+          "translations": {
+            "fi": {
+              "title": "FI-Alert harjoitushälytys",
+              "name": "FI-Alert harjoitushälytys",
+              "description": "Harjoitushälytys"
+            },
+            "sv": {
+              "title": "FI-Alert övningslarm",
+              "name": "FI-Alert övningslarm",
+              "description": "Övningslarm"
+            }
+          },
+          "ranges": [
+            {
+              "from": 4381,
+              "to": 4381,
+              "mandatory": false,
+              "apply": true,
+              "languageRole": "local"
+            },
+            {
+              "from": 4394,
+              "to": 4394,
+              "mandatory": false,
+              "apply": true,
+              "languageRole": "additional"
+            }
+          ],
+          "attentionProfile": "standard",
+          "attentionDurationMs": 10500,
+          "vibrationRepeat": false
+        },
+        {
+          "id": "geo_fencing",
+          "name": "FI-Alert EU-Geo-fencing Trigger Message",
+          "title": "FI-Alert EU-Geo-fencing Trigger Message",
+          "description": "EU-Geo-fencing Trigger Message",
+          "customName": true,
+          "alertLevel": "geofencing",
+          "defaultEnabled": true,
+          "userConfigurable": false,
+          "settingsVisible": false,
+          "display": "none",
+          "attentionMode": "silent",
+          "attentionPolicy": "none",
+          "attentionRepeat": false,
+          "languageFilter": "none",
+          "sourceRef": "fi-alert-intake-v6",
+          "translations": {
+            "fi": {
+              "title": "FI-Alert aluekohdistuksen käynnistysviesti",
+              "name": "FI-Alert aluekohdistuksen käynnistysviesti",
+              "description": "Aluekohdistuksen käynnistysviesti"
+            },
+            "sv": {
+              "title": "FI-Alert geostyrningsutlösningsmeddelande",
+              "name": "FI-Alert geostyrningsutlösningsmeddelande",
+              "description": "Geostyrningsutlösningsmeddelande"
+            }
+          },
+          "ranges": [
+            {
+              "from": 4400,
+              "to": 4400,
+              "mandatory": true,
+              "apply": true,
+              "languageRole": "not-applicable"
+            }
+          ],
+          "vibrationRepeat": false
+        }
+      ]
+    }
+  },
+  "version": 1
+}

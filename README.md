@@ -41,7 +41,8 @@ records the exact source commit in the JSON metadata. The catalog contains:
   policy.
 - Default and country-specific public-warning vibration patterns.
 
-Optional national policies can be installed as separate packages into
+Optional national policies are built from `data/overrides/` as separate
+installable subpackages and installed into
 `/usr/share/cell-broadcast-provider-info/overrides.d/`. The base catalogue does
 not embed those overlays. See
 [Runtime overlays](#runtime-overlays) below.
@@ -129,8 +130,9 @@ tools/generate-cellbroadcast-catalog.py \
 ```
 
 No separately packaged national overlays are merged by default. For an explicit
-combined catalogue, repeat `--regulatory-overrides PATH`. Keep the packaged
-base catalogue separate from these optional policies.
+combined catalogue, repeat `--regulatory-overrides PATH`, pointing to the
+desired files in `data/overrides/`. Keep the packaged base catalogue separate
+from these optional policies.
 The `--regulatory-attention-policies` and `--regulatory-vibration-policies`
 defaults remain `data/regulatory-attention-policies.json` and
 `data/regulatory-vibration-policies.json`.
@@ -166,7 +168,7 @@ truncated to two characters.
 
 ## Runtime overlays
 
-National policy packages can install JSON supplements in
+National policy subpackages install JSON supplements in
 `/usr/share/cell-broadcast-provider-info/overrides.d/`. The loader reads
 `channels.json` first and then `*.json` supplements in filename order. It also
 uses an adjacent `overrides.d` directory when given a custom catalogue path.
@@ -182,11 +184,23 @@ Later files take precedence. Identical source definitions may be repeated;
 conflicting provenance, invalid entries, unsupported versions and malformed
 JSON cause catalogue loading to fail with the offending filename.
 
+The source package builds the following national policy subpackages:
+
+| Package | Policy | Installed file | License |
+| --- | --- | --- | --- |
+| `cell-broadcast-provider-info-ausalert` | [AusAlert, MCC 505](docs/ausalert.md) | `50-ausalert.json` | ASL 2.0 |
+| `cell-broadcast-provider-info-fi-alert` | [FI-Alert, MCC 244](docs/fi-alert.md) | `50-fi-alert.json` | ASL 2.0 |
+
+Both require the matching base package version. AusAlert retains a weak
+`Supplements` dependency on the base package; explicitly select it in images
+which disable weak dependencies. FI-Alert is installed only when selected.
+
 Restart `voicecall-manager` after installing, updating or removing supplements;
 the process caches its catalogue. Removing a supplement restores the base
-policy after restart. Supplements are separately installable and removable.
+policy after restart. Supplements are maintained here alongside the base
+catalogue, but remain separately installable and removable.
 
 ## Validation
 
 Run `PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -v`.
-The RPM build runs the same base catalogue tests in `%check`.
+The RPM build runs the same base catalogue and national policy tests in `%check`.
