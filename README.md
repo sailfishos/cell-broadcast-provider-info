@@ -41,8 +41,8 @@ records the exact source commit in the JSON metadata. The catalog contains:
   policy.
 - Default and country-specific public-warning vibration patterns.
 
-Optional national policies are built from `data/overrides/` as separate
-installable subpackages and installed into
+National policies are built from `data/overrides/` as separate subpackages
+recommended by the main package and installed into
 `/usr/share/cell-broadcast-provider-info/overrides.d/`. The base catalogue does
 not embed those overlays. See
 [Runtime overlays](#runtime-overlays) below.
@@ -132,7 +132,7 @@ tools/generate-cellbroadcast-catalog.py \
 No separately packaged national overlays are merged by default. For an explicit
 combined catalogue, repeat `--regulatory-overrides PATH`, pointing to the
 desired files in `data/overrides/`. Keep the packaged base catalogue separate
-from these optional policies.
+from these policies.
 The `--regulatory-attention-policies` and `--regulatory-vibration-policies`
 defaults remain `data/regulatory-attention-policies.json` and
 `data/regulatory-vibration-policies.json`.
@@ -191,14 +191,15 @@ The source package builds the following national policy subpackages:
 | `cell-broadcast-provider-info-ausalert` | [AusAlert, MCC 505](docs/ausalert.md) | `50-ausalert.json` | ASL 2.0 |
 | `cell-broadcast-provider-info-fi-alert` | [FI-Alert, MCC 244](docs/fi-alert.md) | `50-fi-alert.json` | ASL 2.0 |
 
-Both require the matching base package version. AusAlert retains a weak
-`Supplements` dependency on the base package; explicitly select it in images
-which disable weak dependencies. FI-Alert is installed only when selected.
+The main package recommends both subpackages at the matching version and release,
+so they are installed by default when weak dependencies are enabled. Either can
+be removed without removing the base package. Both subpackages require the
+matching base package version and release.
 
 Restart `voicecall-manager` after installing, updating or removing supplements;
 the process caches its catalogue. Removing a supplement restores the base
-policy after restart. Supplements are maintained here alongside the base
-catalogue, but remain separately installable and removable.
+policy after restart. Re-evaluating recommendations can reinstall removed
+supplements; a package lock can keep an unwanted supplement excluded.
 
 ## Validation
 

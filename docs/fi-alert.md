@@ -27,6 +27,9 @@ need confirmation against the final compliance specification and device tests.
 The noarch RPM installs the overlay as
 `/usr/share/cell-broadcast-provider-info/overrides.d/50-fi-alert.json`.
 It requires the shared base catalogue and an overlay-capable Voicecall build.
+The main provider package recommends this subpackage at the matching version
+and release, so it is installed by default when weak dependencies are enabled.
+It can be removed without removing the base catalogue.
 Install the coordinated runtime/UI updates before testing the policy, then
 restart `voicecall-manager` so it reloads the installed catalogue. Removal
 restores the base policy after the same restart.
