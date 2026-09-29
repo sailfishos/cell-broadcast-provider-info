@@ -10,11 +10,9 @@ attention uses the shared critical profile; Priority uses standard attention
 with one SOS vibration cycle. All other applicable categories retain standard
 profile-controlled attention.
 
-Install this package wherever the base provider package previously supplied
-AusAlert. The weak Supplements dependency requests installation alongside the
-base when this package is available; image/package selections should explicitly
-include it when weak dependencies are disabled. The base package alone no
-longer contains this policy.
+The main provider package recommends this subpackage at the matching version
+and release, so it is installed by default when weak dependencies are enabled.
+It can be removed without removing the base catalogue.
 
 ## Installation
 

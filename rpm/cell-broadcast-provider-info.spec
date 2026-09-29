@@ -7,6 +7,9 @@ BuildArch:  noarch
 URL:        https://github.com/sailfishos/cell-broadcast-provider-info/
 Source0:    %{name}-%{version}.tar.bz2
 
+Recommends:  %{name}-ausalert = %{version}-%{release}
+Recommends:  %{name}-fi-alert = %{version}-%{release}
+
 BuildRequires:  gstreamer1.0-plugins-base
 BuildRequires:  gstreamer1.0-plugins-good
 BuildRequires:  gstreamer1.0-tools
@@ -29,7 +32,6 @@ Contains development files for %{name}.
 %package ausalert
 Summary:    Australian public warning policy
 Requires:   %{name} = %{version}-%{release}
-Supplements: %{name}
 
 %description ausalert
 Australian public warning policy for the supplemental Cell Broadcast catalogue loader.
