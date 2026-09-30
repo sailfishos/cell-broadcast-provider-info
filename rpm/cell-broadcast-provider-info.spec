@@ -7,6 +7,9 @@ BuildArch:  noarch
 URL:        https://github.com/sailfishos/cell-broadcast-provider-info/
 Source0:    %{name}-%{version}.tar.bz2
 
+Recommends:  %{name}-ausalert = %{version}-%{release}
+Recommends:  %{name}-fi-alert = %{version}-%{release}
+
 BuildRequires:  gstreamer1.0-plugins-base
 BuildRequires:  gstreamer1.0-plugins-good
 BuildRequires:  gstreamer1.0-tools
@@ -26,22 +29,62 @@ Requires:   %{name} = %{version}-%{release}
 %description devel
 Contains development files for %{name}.
 
+%package ausalert
+Summary:    Australian public warning policy
+Requires:   %{name} = %{version}-%{release}
+
+%description ausalert
+Australian public warning policy for the supplemental Cell Broadcast catalogue loader.
+
+%package fi-alert
+Summary:    Finnish public warning policy
+Requires:   %{name} = %{version}-%{release}
+
+%description fi-alert
+Finnish public warning policy for the supplemental Cell Broadcast catalogue loader.
+
 %prep
 %setup -q -n %{name}-%{version}
 
+%check
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -v
+
 %install
+install -d -m 0755 \
+    %{buildroot}%{_datadir}/cell-broadcast-provider-info/overrides.d
 install -D -m 0644 data/channels.json \
     %{buildroot}%{_datadir}/cell-broadcast-provider-info/channels.json
+install -m 0644 data/overrides/ausalert-regulatory.json \
+    %{buildroot}%{_datadir}/cell-broadcast-provider-info/overrides.d/50-ausalert.json
+install -m 0644 data/overrides/fi-alert-regulatory.json \
+    %{buildroot}%{_datadir}/cell-broadcast-provider-info/overrides.d/50-fi-alert.json
 
+install -d -m 0755 \
+    %{buildroot}%{_datadir}/cell-broadcast-provider-info/attention-tones
 python3 tools/generate-cellbroadcast-attention-tones.py \
     --output-dir %{buildroot}%{_datadir}/cell-broadcast-provider-info/attention-tones
+chmod 0644 \
+    %{buildroot}%{_datadir}/cell-broadcast-provider-info/attention-tones/cellbroadcast-attention-853-960.ogg
 
 install -D -m 0644 cell-broadcast-provider-info.pc \
     %{buildroot}%{_datadir}/pkgconfig/cell-broadcast-provider-info.pc
 
 %files
 %license LICENSE
-%{_datadir}/cell-broadcast-provider-info
+%dir %{_datadir}/cell-broadcast-provider-info
+%dir %{_datadir}/cell-broadcast-provider-info/overrides.d
+%{_datadir}/cell-broadcast-provider-info/channels.json
+%{_datadir}/cell-broadcast-provider-info/attention-tones
 
 %files devel
 %{_datadir}/pkgconfig/cell-broadcast-provider-info.pc
+
+%files ausalert
+%license LICENSE
+%doc docs/ausalert.md
+%{_datadir}/cell-broadcast-provider-info/overrides.d/50-ausalert.json
+
+%files fi-alert
+%license LICENSE
+%doc docs/fi-alert.md
+%{_datadir}/cell-broadcast-provider-info/overrides.d/50-fi-alert.json
